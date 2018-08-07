@@ -1,0 +1,103 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Google.ReCapture", "Google.ReCapture\Google.ReCapture.csproj", "{F72AF876-E9F0-447F-8080-F2B272258560}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tnomer.AspNetCore.Mvc", "Tnomer.AspNetCore.Mvc\Tnomer.AspNetCore.Mvc.csproj", "{7C9F2D69-5DA8-4A1B-96A1-D43D53EC51EA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tnomer.Remontica.Private.Api", "Tnomer.Remontica.Private.Api\Tnomer.Remontica.Private.Api.csproj", "{020FA7F1-889C-4288-B664-366BBB6936F3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tnomer.Remontica.Public.Api", "Tnomer.Remontica.Public.Api\Tnomer.Remontica.Public.Api.csproj", "{71716BBF-6903-4AEF-9F1C-21ED978E9B23}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tnomer.IdentityService", "Tnomer.IdentityService\Tnomer.IdentityService.csproj", "{43690F0A-0646-47EB-A543-BB4CDC6E511A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tnomer.BusinessFramework", "Tnomer.BusinessFramework\Tnomer.BusinessFramework.csproj", "{8DCA5713-5AC5-404D-8252-62D960235666}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tnomer.Remontica.BusinessFramework", "Tnomer.Remontica.BusinessFramework\Tnomer.Remontica.BusinessFramework.csproj", "{47D370E4-843A-432C-9FA5-AFD011195860}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tnomer.Remontica.EntityFramework", "Tnomer.Remontica.EntityFramework\Tnomer.Remontica.EntityFramework.csproj", "{947CA0A6-FE13-4B5C-B211-8BE5B86BAA60}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tnomer.Remontica.Private.Api.Model", "Tnomer.Remontica.Private.Api.Model\Tnomer.Remontica.Private.Api.Model.csproj", "{E96541FB-7536-44A5-A7B9-D278AF7938B6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tnomer.Remontica.UI.Web", "Tnomer.Remontica.UI.Web\Tnomer.Remontica.UI.Web.csproj", "{91DDF109-C25C-464A-9C5A-42F666092397}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tnomer.Remontica.Private.UI.Html", "Tnomer.Remontica.Private.UI.Html\Tnomer.Remontica.Private.UI.Html.csproj", "{33D929E8-80FC-467E-BB50-93F7258D2621}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tnomer.Remontica.Private.Api.Client", "Tnomer.Remontica.Private.Api.Client\Tnomer.Remontica.Private.Api.Client.csproj", "{C89A34DD-D8A4-4DD6-80CD-3C5B1BCBF6EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tnomer.Remontica.Private.UI.Html.WebClient", "Tnomer.Remontica.Private.UI.Html.WebClient\Tnomer.Remontica.Private.UI.Html.WebClient.csproj", "{16E6288A-11D7-4410-A9CC-BA6EC0B4F505}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tnomer.Remontica.Authority", "Tnomer.Remontica.Authority\Tnomer.Remontica.Authority.csproj", "{EB0369B4-40FA-49CF-8EDD-A841EC666612}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F72AF876-E9F0-447F-8080-F2B272258560}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F72AF876-E9F0-447F-8080-F2B272258560}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F72AF876-E9F0-447F-8080-F2B272258560}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F72AF876-E9F0-447F-8080-F2B272258560}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C9F2D69-5DA8-4A1B-96A1-D43D53EC51EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C9F2D69-5DA8-4A1B-96A1-D43D53EC51EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C9F2D69-5DA8-4A1B-96A1-D43D53EC51EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C9F2D69-5DA8-4A1B-96A1-D43D53EC51EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{020FA7F1-889C-4288-B664-366BBB6936F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{020FA7F1-889C-4288-B664-366BBB6936F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{020FA7F1-889C-4288-B664-366BBB6936F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{020FA7F1-889C-4288-B664-366BBB6936F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71716BBF-6903-4AEF-9F1C-21ED978E9B23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71716BBF-6903-4AEF-9F1C-21ED978E9B23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71716BBF-6903-4AEF-9F1C-21ED978E9B23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71716BBF-6903-4AEF-9F1C-21ED978E9B23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43690F0A-0646-47EB-A543-BB4CDC6E511A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43690F0A-0646-47EB-A543-BB4CDC6E511A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43690F0A-0646-47EB-A543-BB4CDC6E511A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43690F0A-0646-47EB-A543-BB4CDC6E511A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DCA5713-5AC5-404D-8252-62D960235666}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DCA5713-5AC5-404D-8252-62D960235666}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DCA5713-5AC5-404D-8252-62D960235666}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DCA5713-5AC5-404D-8252-62D960235666}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47D370E4-843A-432C-9FA5-AFD011195860}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47D370E4-843A-432C-9FA5-AFD011195860}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47D370E4-843A-432C-9FA5-AFD011195860}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47D370E4-843A-432C-9FA5-AFD011195860}.Release|Any CPU.Build.0 = Release|Any CPU
+		{947CA0A6-FE13-4B5C-B211-8BE5B86BAA60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{947CA0A6-FE13-4B5C-B211-8BE5B86BAA60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{947CA0A6-FE13-4B5C-B211-8BE5B86BAA60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{947CA0A6-FE13-4B5C-B211-8BE5B86BAA60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E96541FB-7536-44A5-A7B9-D278AF7938B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E96541FB-7536-44A5-A7B9-D278AF7938B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E96541FB-7536-44A5-A7B9-D278AF7938B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E96541FB-7536-44A5-A7B9-D278AF7938B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91DDF109-C25C-464A-9C5A-42F666092397}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91DDF109-C25C-464A-9C5A-42F666092397}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91DDF109-C25C-464A-9C5A-42F666092397}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91DDF109-C25C-464A-9C5A-42F666092397}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33D929E8-80FC-467E-BB50-93F7258D2621}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33D929E8-80FC-467E-BB50-93F7258D2621}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33D929E8-80FC-467E-BB50-93F7258D2621}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33D929E8-80FC-467E-BB50-93F7258D2621}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C89A34DD-D8A4-4DD6-80CD-3C5B1BCBF6EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C89A34DD-D8A4-4DD6-80CD-3C5B1BCBF6EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C89A34DD-D8A4-4DD6-80CD-3C5B1BCBF6EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C89A34DD-D8A4-4DD6-80CD-3C5B1BCBF6EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16E6288A-11D7-4410-A9CC-BA6EC0B4F505}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16E6288A-11D7-4410-A9CC-BA6EC0B4F505}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16E6288A-11D7-4410-A9CC-BA6EC0B4F505}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16E6288A-11D7-4410-A9CC-BA6EC0B4F505}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB0369B4-40FA-49CF-8EDD-A841EC666612}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB0369B4-40FA-49CF-8EDD-A841EC666612}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB0369B4-40FA-49CF-8EDD-A841EC666612}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB0369B4-40FA-49CF-8EDD-A841EC666612}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {952CF0E8-3444-4940-B7E6-58194C253DDD}
+	EndGlobalSection
+EndGlobal

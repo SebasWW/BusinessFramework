@@ -1,0 +1,1 @@
+Scaffold-DbContext "Data Source=dev01.tnomer.ru;Initial Catalog=Remontica_dev;Integrated Security=False;User ID=usr_public_api;Password=api123;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False" Microsoft.EntityFrameworkCore.SqlServer -Project Tnomer.Remontica.EntityFramework -Force -Context RemonticaContext

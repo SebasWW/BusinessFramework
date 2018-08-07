@@ -1,0 +1,14 @@
+C:\Git\remonticaServices\Tnomer\Tnomer.AspNetCore.Mvc\bin\Release\netcoreapp2.1\Tnomer.AspNetCore.Mvc.deps.json
+C:\Git\remonticaServices\Tnomer\Tnomer.AspNetCore.Mvc\bin\Release\netcoreapp2.1\Tnomer.AspNetCore.Mvc.runtimeconfig.json
+C:\Git\remonticaServices\Tnomer\Tnomer.AspNetCore.Mvc\bin\Release\netcoreapp2.1\Tnomer.AspNetCore.Mvc.runtimeconfig.dev.json
+C:\Git\remonticaServices\Tnomer\Tnomer.AspNetCore.Mvc\bin\Release\netcoreapp2.1\Tnomer.AspNetCore.Mvc.dll
+C:\Git\remonticaServices\Tnomer\Tnomer.AspNetCore.Mvc\bin\Release\netcoreapp2.1\Tnomer.AspNetCore.Mvc.pdb
+C:\Git\remonticaServices\Tnomer\Tnomer.AspNetCore.Mvc\bin\Release\netcoreapp2.1\Tnomer.dll
+C:\Git\remonticaServices\Tnomer\Tnomer.AspNetCore.Mvc\bin\Release\netcoreapp2.1\Tnomer.pdb
+C:\Git\remonticaServices\Tnomer\Tnomer.AspNetCore.Mvc\obj\Release\netcoreapp2.1\Tnomer.AspNetCore.Mvc.csprojAssemblyReference.cache
+C:\Git\remonticaServices\Tnomer\Tnomer.AspNetCore.Mvc\obj\Release\netcoreapp2.1\Tnomer.AspNetCore.Mvc.csproj.CoreCompileInputs.cache
+C:\Git\remonticaServices\Tnomer\Tnomer.AspNetCore.Mvc\obj\Release\netcoreapp2.1\Tnomer.AspNetCore.Mvc.AssemblyInfoInputs.cache
+C:\Git\remonticaServices\Tnomer\Tnomer.AspNetCore.Mvc\obj\Release\netcoreapp2.1\Tnomer.AspNetCore.Mvc.AssemblyInfo.cs
+C:\Git\remonticaServices\Tnomer\Tnomer.AspNetCore.Mvc\obj\Release\netcoreapp2.1\Tnomer.AspNetCore.Mvc.csproj.CopyComplete
+C:\Git\remonticaServices\Tnomer\Tnomer.AspNetCore.Mvc\obj\Release\netcoreapp2.1\Tnomer.AspNetCore.Mvc.dll
+C:\Git\remonticaServices\Tnomer\Tnomer.AspNetCore.Mvc\obj\Release\netcoreapp2.1\Tnomer.AspNetCore.Mvc.pdb

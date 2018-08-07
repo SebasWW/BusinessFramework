@@ -1,0 +1,9 @@
+C:\Git\remonticaServices\Tnomer\Tnomer\bin\Debug\netstandard2.0\Tnomer.deps.json
+C:\Git\remonticaServices\Tnomer\Tnomer\bin\Debug\netstandard2.0\Tnomer.dll
+C:\Git\remonticaServices\Tnomer\Tnomer\bin\Debug\netstandard2.0\Tnomer.pdb
+C:\Git\remonticaServices\Tnomer\Tnomer\obj\Debug\netstandard2.0\Tnomer.csproj.CoreCompileInputs.cache
+C:\Git\remonticaServices\Tnomer\Tnomer\obj\Debug\netstandard2.0\Tnomer.AssemblyInfoInputs.cache
+C:\Git\remonticaServices\Tnomer\Tnomer\obj\Debug\netstandard2.0\Tnomer.AssemblyInfo.cs
+C:\Git\remonticaServices\Tnomer\Tnomer\obj\Debug\netstandard2.0\Tnomer.dll
+C:\Git\remonticaServices\Tnomer\Tnomer\obj\Debug\netstandard2.0\Tnomer.pdb
+C:\Git\remonticaServices\Tnomer\Tnomer\obj\Debug\netstandard2.0\Tnomer.csprojAssemblyReference.cache

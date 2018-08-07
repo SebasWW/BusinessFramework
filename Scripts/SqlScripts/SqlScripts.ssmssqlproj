@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<SqlWorkbenchSqlProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="SqlScripts">
+  <Items>
+    <LogicalFolder Name="Connections" Type="2" Sorted="true">
+      <Items>
+        <ConnectionNode Name="dev01.tnomer.ru:b.shirokolov">
+          <Created>2018-01-10T10:56:48.8269159+03:00</Created>
+          <Type>SQL</Type>
+          <Server>dev01.tnomer.ru</Server>
+          <UserName>b.shirokolov</UserName>
+          <Authentication>SQL</Authentication>
+          <InitialDB />
+          <LoginTimeout>30</LoginTimeout>
+          <ExecutionTimeout>0</ExecutionTimeout>
+          <ConnectionProtocol>NotSpecified</ConnectionProtocol>
+          <ApplicationName>Microsoft SQL Server Management Studio - Query</ApplicationName>
+        </ConnectionNode>
+      </Items>
+    </LogicalFolder>
+    <LogicalFolder Name="Queries" Type="0" Sorted="true">
+      <Items>
+        <FileNode Name="_fn_first_upper.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dev01.tnomer.ru:False:b.shirokolov</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>dev01.tnomer.ru</AssociatedConnSrvName>
+          <AssociatedConnUserName>b.shirokolov</AssociatedConnUserName>
+          <FullPath>_fn_first_upper.sql</FullPath>
+        </FileNode>
+        <FileNode Name="_fn_to_camel_case.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dev01.tnomer.ru:False:b.shirokolov</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>dev01.tnomer.ru</AssociatedConnSrvName>
+          <AssociatedConnUserName>b.shirokolov</AssociatedConnUserName>
+          <FullPath>_fn_to_camel_case.sql</FullPath>
+        </FileNode>
+        <FileNode Name="_fn_to_dotnet_type.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dev01.tnomer.ru:False:b.shirokolov</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>dev01.tnomer.ru</AssociatedConnSrvName>
+          <AssociatedConnUserName>b.shirokolov</AssociatedConnUserName>
+          <FullPath>_fn_to_dotnet_type.sql</FullPath>
+        </FileNode>
+        <FileNode Name="_sp_generate_biz_by_table.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dev01.tnomer.ru:False:b.shirokolov</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>dev01.tnomer.ru</AssociatedConnSrvName>
+          <AssociatedConnUserName>b.shirokolov</AssociatedConnUserName>
+          <FullPath>_sp_generate_biz_by_table.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo._generate_missing_indexes.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dev01.tnomer.ru:False:b.shirokolov</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>dev01.tnomer.ru</AssociatedConnSrvName>
+          <AssociatedConnUserName>b.shirokolov</AssociatedConnUserName>
+          <FullPath>dbo._generate_missing_indexes.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo._generate_proc_by_table.StoredProcedure.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dev01.tnomer.ru:False:b.shirokolov</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>dev01.tnomer.ru</AssociatedConnSrvName>
+          <AssociatedConnUserName>b.shirokolov</AssociatedConnUserName>
+          <FullPath>dbo._generate_proc_by_table.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo._generate_table.StoredProcedure.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dev01.tnomer.ru:False:b.shirokolov</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>dev01.tnomer.ru</AssociatedConnSrvName>
+          <AssociatedConnUserName>b.shirokolov</AssociatedConnUserName>
+          <FullPath>dbo._generate_table.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo._generate_unkeyed_columns.StoredProcedure.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dev01.tnomer.ru:False:b.shirokolov</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>dev01.tnomer.ru</AssociatedConnSrvName>
+          <AssociatedConnUserName>b.shirokolov</AssociatedConnUserName>
+          <FullPath>dbo._generate_unkeyed_columns.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo._generate_unusable_indexes.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dev01.tnomer.ru:False:b.shirokolov</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>dev01.tnomer.ru</AssociatedConnSrvName>
+          <AssociatedConnUserName>b.shirokolov</AssociatedConnUserName>
+          <FullPath>dbo._generate_unusable_indexes.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo._generate_upu_proc_by_table.StoredProcedure.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:dev01.tnomer.ru:False:b.shirokolov</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>dev01.tnomer.ru</AssociatedConnSrvName>
+          <AssociatedConnUserName>b.shirokolov</AssociatedConnUserName>
+          <FullPath>dbo._generate_upu_proc_by_table.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo._get_locks_info.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo._get_locks_info.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo._rebuild_STATISTICS.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo._rebuild_STATISTICS.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo._rebuild_views.PredeployScript.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo._rebuild_views.PredeployScript.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo._search_id.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo._search_id.StoredProcedure.sql</FullPath>
+        </FileNode>
+        <FileNode Name="dbo._search_pattern.StoredProcedure.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>dbo._search_pattern.StoredProcedure.sql</FullPath>
+        </FileNode>
+      </Items>
+    </LogicalFolder>
+    <LogicalFolder Name="Miscellaneous" Type="3" Sorted="true">
+      <Items />
+    </LogicalFolder>
+  </Items>
+</SqlWorkbenchSqlProject>

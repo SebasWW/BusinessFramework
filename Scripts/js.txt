@@ -1,0 +1,7 @@
+var xhr = new XMLHttpRequest();
+
+// 2. Конфигурируем его: GET-запрос на URL 'phones.json'
+xhr.open('GET', 'http://dev01.tnomer.ru/public/api/main-page', true);
+
+// 3. Отсылаем запрос
+xhr.send();
