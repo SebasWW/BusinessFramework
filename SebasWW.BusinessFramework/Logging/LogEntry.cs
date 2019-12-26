@@ -8,11 +8,11 @@ namespace SebasWW.BusinessFramework.Log
     {
         internal LogEntry
             (
-                String dbSetName,
-                Func<Object> primaryKeyGetter,
-                String propertyName,
-                Object oldValue,
-                Func<Object> newValueGetter
+                string dbSetName,
+                Func<object> primaryKeyGetter,
+                string propertyName,
+                object oldValue,
+                Func<object> newValueGetter
             )
         {
             DbSetName = dbSetName;
@@ -22,8 +22,8 @@ namespace SebasWW.BusinessFramework.Log
             _newValueGetter = newValueGetter;
         }
 
-        Func<Object> _primaryKeyGetter;
-        Func<Object> _newValueGetter;
+        Func<object> _primaryKeyGetter;
+        Func<object> _newValueGetter;
 
         public string DbSetName { get; }
         public object PrimaryKey { get => _primaryKeyGetter.Invoke(); }

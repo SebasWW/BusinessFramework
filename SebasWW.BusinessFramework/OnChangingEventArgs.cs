@@ -5,13 +5,13 @@ using System.Text;
 namespace SebasWW.BusinessFramework
 {
     public class OnChangingEventArgs<TObject> : EventArgs
-        where TObject : GenericObjectBase
+        where TObject : BusinessObjectBase
     {
         public OnChangingEventArgs(TObject obj)
         {
             BusinessObject = obj;
         }
 
-        public TObject BusinessObject { get; set; }
+        public TObject BusinessObject { get; }
     }
 }

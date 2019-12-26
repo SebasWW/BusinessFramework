@@ -2,16 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
-using SebasWW.BusinessFramework.Query;
 
 namespace SebasWW.BusinessFramework.Query
 {
     public class BusinessOrderedQuery<TCollection, TReadOnlyCollection, TObject, TEntry, TKey> : BusinessQuery<TCollection, TReadOnlyCollection, TObject, TEntry, TKey>
-        where TCollection : GenericCollection<TObject, TEntry, TKey>
-        where TReadOnlyCollection : GenericReadOnlyCollection<TObject, TEntry, TKey>
-        where TObject : GenericObject<TEntry, TKey>
+        where TCollection : BusinessCollection<TObject, TEntry, TKey>
+        where TReadOnlyCollection : BusinessReadOnlyCollection<TObject, TEntry, TKey>
+        where TObject : BusinessObject<TEntry, TKey>
         where TEntry : class
     {
         IOrderedQueryable<TEntry> _orderedQueryable;

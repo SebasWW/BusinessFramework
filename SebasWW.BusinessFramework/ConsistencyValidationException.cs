@@ -6,7 +6,7 @@ namespace SebasWW.BusinessFramework
 {
     public class ConsistencyValidationException : BusinessException
     {
-        internal ConsistencyValidationException(Object id, String key, String message) : base(key, message)
+        internal ConsistencyValidationException(object id, string key, string message) : base(key, message)
         {
             Id = id;
         }
@@ -15,6 +15,6 @@ namespace SebasWW.BusinessFramework
             Id = entry.Id;
         }
 
-        public Object Id { get; private set; }
+        public object Id { get; private set; }
     }
 }

@@ -4,13 +4,10 @@ using System.Text;
 
 namespace SebasWW.BusinessFramework
 {
-    public abstract class BusinessException:Exception 
+    public class BusinessException : Exception
     {
-        public String Key { get; private set; }
-
-        internal BusinessException(String key, String message) : base(message)
+        public BusinessException(string message) : base(message)
         {
-            Key = key;
         }
     }
 }

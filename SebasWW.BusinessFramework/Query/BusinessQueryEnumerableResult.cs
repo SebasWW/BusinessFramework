@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace SebasWW.BusinessFramework.Query
 {
-    public class BusinessQueryEnumerableResult<Result>
+	public class BusinessQueryEnumerableResult<Result>
         where Result : class
     {
         protected virtual IQueryable<Result> Query{ get; set;}

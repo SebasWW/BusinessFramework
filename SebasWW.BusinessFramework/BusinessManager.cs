@@ -35,7 +35,7 @@ namespace SebasWW.BusinessFramework
 
         public virtual async Task SaveChangesAsync()
         {
-            GenericObjectBase ib;
+            BusinessObjectBase ib;
             var list = new List<TrackingParams>();
             var logs = new List<LogEntry>();
 
@@ -125,13 +125,14 @@ namespace SebasWW.BusinessFramework
             }
         }
 
-        async Task DoCheck(IEnumerable<GenericObjectBase> list, Boolean beforeUpdate)
+        async Task DoCheck(IEnumerable<BusinessObjectBase> list, Boolean beforeUpdate)
         {
             //**********************************************
-            // check WriteSecure
+            // WriteSecure
             //**********************************************
             IQueryable<SecurityErrorEntry> secureQuery = null;
             WriteSecurityCheck currentSecureQuery;
+
             foreach (var obj in list.Where(t => t is IWriteSecurable))
             {
                 currentSecureQuery = await (obj as IWriteSecurable).CheckSecurityAsQuery(true);
@@ -142,6 +143,8 @@ namespace SebasWW.BusinessFramework
                     if (currentSecureQuery.State == WriteSecurityState.NoAccess)
                         throw new WriteSecurityException(0, "ACCESS_DENIED", obj.GetType().Name);
 
+                    if (currentSecureQuery.Queue == null) throw new BusinessException("WriteSecurityCheck with state 'NeedExecute' must have not nullable 'Query' property.");
+
                     // need check
                     if (secureQuery == null)
                         secureQuery = currentSecureQuery.Queue;
@@ -149,7 +152,7 @@ namespace SebasWW.BusinessFramework
                         secureQuery = secureQuery.Union(currentSecureQuery.Queue);
                 }
             }
-            //check db
+            // db request
             if (secureQuery != null)
             {
                 var entry = (await secureQuery.ToArrayAsync()).FirstOrDefault();
@@ -158,8 +161,9 @@ namespace SebasWW.BusinessFramework
                     throw new WriteSecurityException(entry);
                 }
             }
+
             //**********************************************
-            // check DbConsistency
+            // Data Consistency
             //**********************************************
             IQueryable<ConsistencyErrorEntry> checkQuery = null, currentCheckQuery;
             foreach (var obj in list.Where(t => t is IConsistencyValidator))
@@ -171,7 +175,7 @@ namespace SebasWW.BusinessFramework
                     else checkQuery = checkQuery.Union(currentCheckQuery);
                 }
             }
-            //check db
+            // db request
             if (checkQuery != null)
             {
                 var entry = (await checkQuery.ToArrayAsync()).FirstOrDefault();
@@ -182,17 +186,17 @@ namespace SebasWW.BusinessFramework
             }
         }
 
-        ConcurrentDictionary<object, GenericObjectBase> _entries = new ConcurrentDictionary<object, GenericObjectBase>();
+        ConcurrentDictionary<object, BusinessObjectBase> _entries = new ConcurrentDictionary<object, BusinessObjectBase>();
 
         // create object from entity
-        protected internal TObject CreateBusinessObject<TObject, TEntry, TKey>(ObjectFactory< TObject, TEntry, TKey> factory, TEntry entry)
-            where TObject : GenericObject<TEntry, TKey> 
+        protected internal TObject CreateBusinessObject<TObject, TEntry, TKey>(BusinessObjectFactory< TObject, TEntry, TKey> factory, TEntry entry)
+            where TObject : BusinessObject<TEntry, TKey> 
             where TEntry : class
         {
             return (TObject)_entries.GetOrAdd(entry, k => factory.CreateInstance(this, entry));
         }
 
-        internal void AddBusinessObject<TEntry, TKey>(GenericObject<TEntry, TKey> obj, bool addEntryToEntrySet) 
+        internal void AddBusinessObject<TEntry, TKey>(BusinessObject<TEntry, TKey> obj, bool addEntryToEntrySet) 
             where TEntry : class
         {
             obj.BusinessManager = this;
@@ -200,7 +204,7 @@ namespace SebasWW.BusinessFramework
         }
 
         // register business object object
-        internal void RegisterBusinessObject<TEntry, TKey>(GenericObject<TEntry, TKey> obj)
+        internal void RegisterBusinessObject<TEntry, TKey>(BusinessObject<TEntry, TKey> obj)
             where TEntry : class
         {
             _entries.AddOrUpdate(obj.Entry, obj, (e, old) => obj);

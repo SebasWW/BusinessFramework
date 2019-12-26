@@ -1,19 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SebasWW.BusinessFramework
+﻿namespace SebasWW.BusinessFramework
 {
-    public class ConsistencyErrorEntry
-    {
-        public ConsistencyErrorEntry(Object id, String key, String message)
+	public class ConsistencyErrorEntry : BusinessException
+	{
+        public ConsistencyErrorEntry(object id, string key, string message) : base(key, message)
         {
             Id = id;
-            Key = key;
-            Message = message;
         }
-        public Object Id { get; set; }
-        public String Key { get; set; }
-        public String Message { get; set; }
+        public object Id { get; }
     }
 }

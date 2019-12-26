@@ -1,8 +1,0 @@
-C:\Git\remonticaServices\Tnomer\Tnomer.BusinessFramework\obj\Debug\netcoreapp2.0\Tnomer.BusinessFramework.csproj.CoreCompileInputs.cache
-C:\Git\remonticaServices\Tnomer\Tnomer.BusinessFramework\obj\Debug\netcoreapp2.0\Tnomer.BusinessFramework.AssemblyInfoInputs.cache
-C:\Git\remonticaServices\Tnomer\Tnomer.BusinessFramework\obj\Debug\netcoreapp2.0\Tnomer.BusinessFramework.AssemblyInfo.cs
-C:\Git\remonticaServices\Tnomer\Tnomer.BusinessFramework\bin\Debug\netcoreapp2.0\Tnomer.BusinessFramework.deps.json
-C:\Git\remonticaServices\Tnomer\Tnomer.BusinessFramework\bin\Debug\netcoreapp2.0\Tnomer.BusinessFramework.dll
-C:\Git\remonticaServices\Tnomer\Tnomer.BusinessFramework\bin\Debug\netcoreapp2.0\Tnomer.BusinessFramework.pdb
-C:\Git\remonticaServices\Tnomer\Tnomer.BusinessFramework\obj\Debug\netcoreapp2.0\Tnomer.BusinessFramework.dll
-C:\Git\remonticaServices\Tnomer\Tnomer.BusinessFramework\obj\Debug\netcoreapp2.0\Tnomer.BusinessFramework.pdb

@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
-using SebasWW.BusinessFramework.Query;
 
-namespace SebasWW.BusinessFramework
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+
+namespace SebasWW.BusinessFramework.Query
 {
     public partial class BusinessQuery<TCollection, TReadOnlyCollection, TObject, TEntry, TKey>
     {
@@ -58,11 +57,11 @@ namespace SebasWW.BusinessFramework
         //
         // Type parameters:
         //   TSource:
-        public BusinessQuery<TCollection, TReadOnlyCollection, TObject, TEntry, TKey> Append(TEntry element)
-        {
-            Query = Query.Append(element);
-            return this;
-        }
+        //public BusinessQuery<TCollection, TReadOnlyCollection, TObject, TEntry, TKey> Append(TEntry element)
+        //{
+        //    Query = Query.Append(element);
+        //    return this;
+        //}
 
         //
         // Summary:
@@ -333,11 +332,11 @@ namespace SebasWW.BusinessFramework
         //
         // Type parameters:
         //   TEntry:
-        public BusinessQuery<TCollection, TReadOnlyCollection, TObject, TEntry, TKey> Prepend(TEntry element)
-        {
-            Query = Query.Prepend(element);
-            return this;
-        }
+        //public BusinessQuery<TCollection, TReadOnlyCollection, TObject, TEntry, TKey> Prepend(TEntry element)
+        //{
+        //    Query = Query.Prepend(element);
+        //    return this;
+        //}
 
         //
         // Summary:
@@ -376,11 +375,11 @@ namespace SebasWW.BusinessFramework
         //
         // Type parameters:
         //   TEntry:
-        public BusinessQuery<TCollection, TReadOnlyCollection, TObject, TEntry, TKey> SkipLast(int count)
-        {
-            Query = Query.SkipLast(count);
-            return this;
-        }
+        //public BusinessQuery<TCollection, TReadOnlyCollection, TObject, TEntry, TKey> SkipLast(int count)
+        //{
+        //    Query = Query.SkipLast(count);
+        //    return this;
+        //}
 
         //
         // Summary:
@@ -480,11 +479,11 @@ namespace SebasWW.BusinessFramework
         //
         // Type parameters:
         //   TEntry:
-        public BusinessQuery<TCollection, TReadOnlyCollection, TObject, TEntry, TKey> TakeLast(int count)
-        {
-            Query = Query.TakeLast(count);
-            return this;
-        }
+        //public BusinessQuery<TCollection, TReadOnlyCollection, TObject, TEntry, TKey> TakeLast(int count)
+        //{
+        //    Query = Query.TakeLast(count);
+        //    return this;
+        //}
 
         //
         // Summary:

@@ -8,7 +8,7 @@ namespace SebasWW.BusinessFramework.Tracking
 {
     public class TrackingParams
     {
-        public TrackingParams(BusinessManager businessManager, GenericObjectBase businessObject, EntityEntry entityEntry)
+        public TrackingParams(BusinessManager businessManager, BusinessObjectBase businessObject, EntityEntry entityEntry)
         {
             BusinessManager = businessManager;
             BusinessObject = businessObject;
@@ -16,7 +16,7 @@ namespace SebasWW.BusinessFramework.Tracking
         }
 
         public BusinessManager BusinessManager { get; }
-        public GenericObjectBase BusinessObject { get; }
+        public BusinessObjectBase BusinessObject { get; }
         public EntityEntry EntityEntry { get; }
     }
 }

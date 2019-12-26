@@ -7,9 +7,9 @@ using Microsoft.EntityFrameworkCore.Query;
 namespace SebasWW.BusinessFramework.Query
 {
     public class BusinessIncludableCollectionQuery<TCollection, TReadOnlyCollection, TObject, TEntry, TKey, TProperty> : BusinessQuery<TCollection, TReadOnlyCollection, TObject, TEntry, TKey>
-        where TCollection : GenericCollection<TObject, TEntry, TKey>
-        where TReadOnlyCollection : GenericReadOnlyCollection<TObject, TEntry, TKey>
-        where TObject : GenericObject<TEntry, TKey>
+        where TCollection : BusinessCollection<TObject, TEntry, TKey>
+        where TReadOnlyCollection : BusinessReadOnlyCollection<TObject, TEntry, TKey>
+        where TObject : BusinessObject<TEntry, TKey>
         where TEntry : class
     {
         IIncludableQueryable<TEntry, IEnumerable<TProperty>> _includableQueryable;

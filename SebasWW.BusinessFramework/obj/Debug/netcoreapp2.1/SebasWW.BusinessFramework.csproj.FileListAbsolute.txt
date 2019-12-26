@@ -1,8 +1,0 @@
-C:\Git\BusinessFramework\Tnomer.BusinessFramework\bin\Debug\netcoreapp2.1\SebasWW.BusinessFramework.deps.json
-C:\Git\BusinessFramework\Tnomer.BusinessFramework\bin\Debug\netcoreapp2.1\SebasWW.BusinessFramework.dll
-C:\Git\BusinessFramework\Tnomer.BusinessFramework\bin\Debug\netcoreapp2.1\SebasWW.BusinessFramework.pdb
-C:\Git\BusinessFramework\Tnomer.BusinessFramework\obj\Debug\netcoreapp2.1\SebasWW.BusinessFramework.csproj.CoreCompileInputs.cache
-C:\Git\BusinessFramework\Tnomer.BusinessFramework\obj\Debug\netcoreapp2.1\SebasWW.BusinessFramework.AssemblyInfoInputs.cache
-C:\Git\BusinessFramework\Tnomer.BusinessFramework\obj\Debug\netcoreapp2.1\SebasWW.BusinessFramework.AssemblyInfo.cs
-C:\Git\BusinessFramework\Tnomer.BusinessFramework\obj\Debug\netcoreapp2.1\SebasWW.BusinessFramework.dll
-C:\Git\BusinessFramework\Tnomer.BusinessFramework\obj\Debug\netcoreapp2.1\SebasWW.BusinessFramework.pdb

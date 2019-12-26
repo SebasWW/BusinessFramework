@@ -1,23 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="DbContextExtension.cs" />
-    <Compile Remove="GenericFactory.cs" />
-    <Compile Remove="IBusinessObject.cs" />
-    <Compile Remove="Query\BusinessQueryResult.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Query\BusinessQuery.Aggregate.cs" />
-    <None Include="Query\BusinessQuery.Results.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.0" />
   </ItemGroup>
 
 </Project>

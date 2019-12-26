@@ -2,18 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
-using SebasWW.BusinessFramework.Query;
 
-namespace SebasWW.BusinessFramework
+namespace SebasWW.BusinessFramework.Query
 {
     public partial class BusinessQuery<TCollection, TReadOnlyCollection, TObject, TEntry, TKey>: 
         BusinessQueryEnumerableResult<TEntry>
-        where TCollection:GenericCollection<TObject, TEntry, TKey>
-        where TReadOnlyCollection : GenericReadOnlyCollection<TObject, TEntry, TKey>
-        where TObject : GenericObject<TEntry, TKey> 
+        where TCollection:BusinessCollection<TObject, TEntry, TKey>
+        where TReadOnlyCollection : BusinessReadOnlyCollection<TObject, TEntry, TKey>
+        where TObject : BusinessObject<TEntry, TKey> 
         where TEntry : class
     {
         internal BusinessQueryContext<TCollection, TReadOnlyCollection, TObject, TEntry, TKey> BusinessQueryContext;
@@ -26,9 +25,20 @@ namespace SebasWW.BusinessFramework
             BusinessQueryContext = businessQueryContext;
         }
 
-        #region Secure
+		public async Task LoadAsync(CancellationToken cancellationToken = default)
+		{
+			if (!BusinessQueryContext.IsSecured)
+			{
+				Query = BusinessQueryContext.ObjectSecurity.ReadSecure(BusinessQueryContext.BusinessContext, Query);
+				BusinessQueryContext.IsSecured = true;
+			}
 
-        internal override IQueryable<TEntry> GetQuery()
+			await Query.LoadAsync();
+		}
+
+		#region Secure
+
+		internal override IQueryable<TEntry> GetQuery()
         {
             var query = Query;
             if (!BusinessQueryContext.IsSecured)
@@ -55,38 +65,38 @@ namespace SebasWW.BusinessFramework
             return Query;
         }
 
-        #endregion
+		#endregion
 
-        #region OrderBy
-        //
-        // Summary:
-        //     Sorts the elements of a sequence in ascending order by using a specified comparer.
-        //
-        // Parameters:
-        //   source:
-        //     A sequence of values to order.
-        //
-        //   keySelector:
-        //     A function to extract a key from an element.
-        //
-        //   comparer:
-        //     An System.Collections.Generic.IComparer`1 to compare keys.
-        //
-        // Type parameters:
-        //   TEntry:
-        //     The type of the elements of source.
-        //
-        //   TKey:
-        //     The type of the key returned by keySelector.
-        //
-        // Returns:
-        //     An System.Linq.IOrderedEnumerable`1 whose elements are sorted according to a
-        //     key.
-        //
-        // Exceptions:
-        //   T:System.ArgumentNullException:
-        //     source or keySelector is null.
-        public BusinessOrderedQuery<TCollection, TReadOnlyCollection, TObject, TEntry, TKey> OrderBy<TSortKey>(Expression<Func<TEntry, TSortKey>> keySelector, IComparer<TSortKey> comparer)
+		#region OrderBy
+		//
+		// Summary:
+		//     Sorts the elements of a sequence in ascending order by using a specified comparer.
+		//
+		// Parameters:
+		//   source:
+		//     A sequence of values to order.
+		//
+		//   keySelector:
+		//     A function to extract a key from an element.
+		//
+		//   comparer:
+		//     An System.Collections.Generic.IComparer`1 to compare keys.
+		//
+		// Type parameters:
+		//   TEntry:
+		//     The type of the elements of source.
+		//
+		//   TKey:
+		//     The type of the key returned by keySelector.
+		//
+		// Returns:
+		//     An System.Linq.IOrderedEnumerable`1 whose elements are sorted according to a
+		//     key.
+		//
+		// Exceptions:
+		//   T:System.ArgumentNullException:
+		//     source or keySelector is null.
+		public BusinessOrderedQuery<TCollection, TReadOnlyCollection, TObject, TEntry, TKey> OrderBy<TSortKey>(Expression<Func<TEntry, TSortKey>> keySelector, IComparer<TSortKey> comparer)
         {
             return new BusinessOrderedQuery<TCollection, TReadOnlyCollection, TObject, TEntry, TKey>(this, Query.OrderBy(keySelector, comparer));
         }
@@ -212,28 +222,28 @@ namespace SebasWW.BusinessFramework
         ////
         //// Returns:
         ////     A new query with the related data included.
-        public BusinessIncludableQuery<TCollection, TReadOnlyCollection, TObject, TEntry, TKey, TProperty> 
-            Include<TProperty>(Expression<Func<TEntry, TProperty>> navigationPropertyPath) where TProperty:class
-        {
-            return new BusinessIncludableQuery<TCollection, TReadOnlyCollection, TObject, TEntry, TKey, TProperty>
-                (
-                    this, 
-                    Query.Include<TEntry,TProperty>(navigationPropertyPath) 
-                 );
-        }
+        //public BusinessIncludableQuery<TCollection, TReadOnlyCollection, TObject, TEntry, TKey, TProperty> 
+        //    Include<TProperty>(Expression<Func<TEntry, TProperty>> navigationPropertyPath) where TProperty:class
+        //{
+        //    return new BusinessIncludableQuery<TCollection, TReadOnlyCollection, TObject, TEntry, TKey, TProperty>
+        //        (
+        //            this, 
+        //            Query.Include<TEntry,TProperty>(navigationPropertyPath) 
+        //         );
+        //}
 
-        public BusinessIncludableCollectionQuery<TCollection, TReadOnlyCollection, TObject, TEntry, TKey, TProperty>
-            Include<TProperty>(Expression<Func<TEntry, ICollection<TProperty>>> navigationPropertyPath) where TProperty : class
-        {
-            return new BusinessIncludableCollectionQuery<TCollection, TReadOnlyCollection, TObject, TEntry, TKey, TProperty>
-                (
-                    this,
-                    Query.Include<TEntry, ICollection<TProperty>>(navigationPropertyPath)
-                 );
-        }
+        //public BusinessIncludableCollectionQuery<TCollection, TReadOnlyCollection, TObject, TEntry, TKey, TProperty>
+        //    Include<TProperty>(Expression<Func<TEntry, ICollection<TProperty>>> navigationPropertyPath) where TProperty : class
+        //{
+        //    return new BusinessIncludableCollectionQuery<TCollection, TReadOnlyCollection, TObject, TEntry, TKey, TProperty>
+        //        (
+        //            this,
+        //            Query.Include<TEntry, ICollection<TProperty>>(navigationPropertyPath)
+        //         );
+        //}
 #endregion
 
-        #region Result 
+        #region ToObject
         //
         // Summary:
         //     Applies an accumulator function over a sequence.
@@ -777,54 +787,57 @@ namespace SebasWW.BusinessFramework
             else
                 return BusinessQueryContext.BusinessContext.CreateBusinessObject(BusinessQueryContext.ObjectFactory, result);
         }
+		#endregion
 
-        //public async Task<IEnumerable<TObject>> ToArray()
-        //{
-        //    return CreateObjectArray(Query.ToArray(), e => BusinessQueryContext.BusinessContext.CreateBusinessObject(BusinessQueryContext.ObjectFactory, e));
-        //}
+		#region ToEnum
 
-        //
-        // Summary:
-        //     Creates an business collection 
-        //
-        // Parameters:
-        //
-        // Type parameters:
-        //   TSource:
-        //     The type of the elements of source.
-        //
-        // Returns:
-        //     An array that contains the elements from the input sequence.
-        //
-        // Exceptions:
-        //   T:System.ArgumentNullException:
-        //     source is null.
-        public TCollection ToCollection()
-        {
-            return BusinessQueryContext.CollectionFactory.CreateInstance(BusinessQueryContext.BusinessContext, SecureReadQuery().ToArray());
-        }
+		//public async Task<IEnumerable<TObject>> ToArray()
+		//{
+		//    return CreateObjectArray(Query.ToArray(), e => BusinessQueryContext.BusinessContext.CreateBusinessObject(BusinessQueryContext.ObjectFactory, e));
+		//}
+
+		//
+		// Summary:
+		//     Creates an business collection 
+		//
+		// Parameters:
+		//
+		// Type parameters:
+		//   TSource:
+		//     The type of the elements of source.
+		//
+		// Returns:
+		//     An array that contains the elements from the input sequence.
+		//
+		// Exceptions:
+		//   T:System.ArgumentNullException:
+		//     source is null.
+		//public TCollection ToCollection()
+  //      {
+  //          return BusinessQueryContext.CollectionFactory.CreateInstance(BusinessQueryContext.BusinessContext, SecureReadQuery().ToArray());
+  //      }
 
         public async Task<TCollection> ToCollectionAsync()
         {
             return BusinessQueryContext.CollectionFactory.CreateInstance(BusinessQueryContext.BusinessContext, await SecureReadQuery().ToArrayAsync());
         }
-        public TReadOnlyCollection ToReadOnlyCollection()
-        {
-            return BusinessQueryContext.CollectionFactory.CreateReadOnlyInstance(BusinessQueryContext.BusinessContext, SecureReadQuery().AsNoTracking().ToArray());
-        }
-
-        public async Task<TReadOnlyCollection> ToReadOnlyCollectionAsync()
-        {
-            return  BusinessQueryContext.CollectionFactory.CreateReadOnlyInstance(BusinessQueryContext.BusinessContext, await SecureReadQuery().AsNoTracking().ToArrayAsync());
-        }
-
-        //private IEnumerable<TObject> CreateObjectArray(IEnumerable<TEntry> entrySet, Func<TEntry, TObject> elementSelector)
+        //public TReadOnlyCollection ToReadOnlyCollection()
         //{
-        //    foreach (var obj in entrySet)
-        //    {
-        //        yield return elementSelector(obj);
-        //    }
+        //    return BusinessQueryContext.CollectionFactory.CreateReadOnlyInstance(BusinessQueryContext.BusinessContext, SecureReadQuery().AsNoTracking().ToArray());
         //}
-#endregion
-    }
+
+        //public async Task<TReadOnlyCollection> ToReadOnlyCollectionAsync()
+        //{
+        //    return  BusinessQueryContext.CollectionFactory.CreateReadOnlyInstance(BusinessQueryContext.BusinessContext, await SecureReadQuery().AsNoTracking().ToArrayAsync());
+        //}
+
+		//private IEnumerable<TObject> CreateObjectArray(IEnumerable<TEntry> entrySet, Func<TEntry, TObject> elementSelector)
+		//{
+		//    foreach (var obj in entrySet)
+		//    {
+		//        yield return elementSelector(obj);
+		//    }
+		//}
+		#endregion
+	}
 }

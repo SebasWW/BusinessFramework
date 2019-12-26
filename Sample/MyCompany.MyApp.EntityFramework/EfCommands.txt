@@ -1,0 +1,2 @@
+﻿Update-Database -Context "MyAppDbContext"
+Add-Migration -Name "MigrationXXX" -Context "MyAppDbContext"

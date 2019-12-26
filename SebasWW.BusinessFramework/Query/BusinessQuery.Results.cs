@@ -2,12 +2,8 @@
 using System.Linq;
 using System.Linq.Expressions;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
-using SebasWW.BusinessFramework.Query;
 
-namespace SebasWW.BusinessFramework
+namespace SebasWW.BusinessFramework.Query
 {
     public partial class BusinessQuery<TCollection, TReadOnlyCollection, TObject, TEntry, TKey>
     {
