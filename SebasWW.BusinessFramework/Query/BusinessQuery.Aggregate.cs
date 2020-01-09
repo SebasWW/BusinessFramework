@@ -47,7 +47,7 @@ namespace SebasWW.BusinessFramework.Query
         //     source or func or selector is null.
         public TResult Aggregate<TAccumulate, TResult>(TAccumulate seed, Expression<Func<TAccumulate, TEntry, TAccumulate>> func, Expression<Func<TAccumulate, TResult>> selector)
         {
-            return SecureReadQuery().Aggregate(seed, func, selector);
+            return FinalizeQuery().Aggregate(seed, func, selector);
         }
 
         //
@@ -80,7 +80,7 @@ namespace SebasWW.BusinessFramework.Query
         //     source or func is null.
         public TAccumulate Aggregate<TAccumulate>(TAccumulate seed, Expression<Func<TAccumulate, TEntry, TAccumulate>> func)
         {
-            return SecureReadQuery().Aggregate(seed, func);
+            return FinalizeQuery().Aggregate(seed, func);
         }
 
         //
@@ -107,7 +107,7 @@ namespace SebasWW.BusinessFramework.Query
         //     source or predicate is null.
         public async Task<bool> AllAsync(Expression<Func<TEntry, bool>> predicate)
         {
-            return await SecureReadQuery().AllAsync(predicate);
+            return await FinalizeQuery().AllAsync(predicate);
         }
 
         //
@@ -130,7 +130,7 @@ namespace SebasWW.BusinessFramework.Query
         //     source is null.
         public async Task<bool> AnyAsync()
         {
-            return await SecureReadQuery().AnyAsync();
+            return await FinalizeQuery().AnyAsync();
         }
 
         //
@@ -157,7 +157,7 @@ namespace SebasWW.BusinessFramework.Query
         //     source or predicate is null.
         public async Task<bool> AnyAsync(Expression<Func<TEntry, bool>> predicate)
         {
-            return await SecureReadQuery().AnyAsync(predicate);
+            return await FinalizeQuery().AnyAsync(predicate);
         }
 
         //
@@ -185,7 +185,7 @@ namespace SebasWW.BusinessFramework.Query
         //     source contains no elements.
         public async Task<double> AverageAsync(Expression<Func<TEntry, int>> selector)
         {
-            return await SecureReadQuery().AverageAsync(selector);
+            return await FinalizeQuery().AverageAsync(selector);
         }
 
         //
@@ -215,7 +215,7 @@ namespace SebasWW.BusinessFramework.Query
         //     source contains no elements.
         public async Task<double> AverageAsync(Expression<Func<TEntry, long>> selector)
         {
-            return await SecureReadQuery().AverageAsync(selector);
+            return await FinalizeQuery().AverageAsync(selector);
         }
 
         //
@@ -243,7 +243,7 @@ namespace SebasWW.BusinessFramework.Query
         //     source or selector is null.
         public async Task<decimal?> AverageAsync(Expression<Func<TEntry, decimal?>> selector)
         {
-            return await SecureReadQuery().AverageAsync(selector);
+            return await FinalizeQuery().AverageAsync(selector);
         }
 
         //
@@ -271,7 +271,7 @@ namespace SebasWW.BusinessFramework.Query
         //     source or selector is null.
         public async Task<double?> AverageAsync(Expression<Func<TEntry, double?>> selector)
         {
-            return await SecureReadQuery().AverageAsync(selector);
+            return await FinalizeQuery().AverageAsync(selector);
         }
 
         //
@@ -301,7 +301,7 @@ namespace SebasWW.BusinessFramework.Query
         //     source contains no elements.
         public async Task<float> AverageAsync(Expression<Func<TEntry, float>> selector)
         {
-            return await SecureReadQuery().AverageAsync(selector);
+            return await FinalizeQuery().AverageAsync(selector);
         }
 
 
@@ -330,7 +330,7 @@ namespace SebasWW.BusinessFramework.Query
         //     source or selector is null.
         public async Task<double?> AverageAsync(Expression<Func<TEntry, long?>> selector)
         {
-            return await SecureReadQuery().AverageAsync(selector);
+            return await FinalizeQuery().AverageAsync(selector);
         }
 
         //
@@ -358,7 +358,7 @@ namespace SebasWW.BusinessFramework.Query
         //     source or selector is null.
         public async Task<float?> AverageAsync(Expression<Func<TEntry, float?>> selector)
         {
-            return await SecureReadQuery().AverageAsync(selector);
+            return await FinalizeQuery().AverageAsync(selector);
         }
 
         //
@@ -388,7 +388,7 @@ namespace SebasWW.BusinessFramework.Query
         //     source contains no elements.
         public async Task<double> AverageAsync(Expression<Func<TEntry, double>> selector)
         {
-            return await SecureReadQuery().AverageAsync(selector);
+            return await FinalizeQuery().AverageAsync(selector);
         }
 
         //
@@ -416,7 +416,7 @@ namespace SebasWW.BusinessFramework.Query
         //     source or selector is null.
         public async Task<double?> AverageAsync(Expression<Func<TEntry, int?>> selector)
         {
-            return await SecureReadQuery().AverageAsync(selector);
+            return await FinalizeQuery().AverageAsync(selector);
         }
 
         //
@@ -446,7 +446,7 @@ namespace SebasWW.BusinessFramework.Query
         //     source contains no elements.
         public async Task<decimal> AverageAsync(Expression<Func<TEntry, decimal>> selector)
         {
-            return await SecureReadQuery().AverageAsync(selector);
+            return await FinalizeQuery().AverageAsync(selector);
         }
 
         //
@@ -474,7 +474,7 @@ namespace SebasWW.BusinessFramework.Query
         //     source is null.
         public async Task<bool> ContainsAsync(TEntry value)
         {
-            return await SecureReadQuery().ContainsAsync(value);
+            return await FinalizeQuery().ContainsAsync(value);
         }
 
         //
@@ -505,7 +505,7 @@ namespace SebasWW.BusinessFramework.Query
         //     source is null.
         public bool Contains(TEntry value, IEqualityComparer<TEntry> comparer)
         {
-            return SecureReadQuery().Contains( value, comparer);
+            return FinalizeQuery().Contains( value, comparer);
         }
 
         //
@@ -536,7 +536,7 @@ namespace SebasWW.BusinessFramework.Query
         //     The number of elements in source is larger than System.Int32.MaxValue.
         public async Task<int> CountAsync(Expression<Func<TEntry, bool>> predicate)
         {
-            return await SecureReadQuery().CountAsync(predicate);
+            return await FinalizeQuery().CountAsync(predicate);
         }
 
         //
@@ -562,7 +562,7 @@ namespace SebasWW.BusinessFramework.Query
         //     The number of elements in source is larger than System.Int32.MaxValue.
         public async Task<int> CountAsync()
         {
-            return await SecureReadQuery().CountAsync();
+            return await FinalizeQuery().CountAsync();
         }
 
         //
@@ -589,7 +589,7 @@ namespace SebasWW.BusinessFramework.Query
         //     The number of elements exceeds System.Int64.MaxValue.
         public async Task<Int64> LongCountAsync()
         {
-            return await SecureReadQuery().LongCountAsync();
+            return await FinalizeQuery().LongCountAsync();
         }
 
         //
@@ -621,7 +621,7 @@ namespace SebasWW.BusinessFramework.Query
         //     The number of matching elements exceeds System.Int64.MaxValue.
         public async Task<Int64> LongCountAsync(Expression<Func<TEntry, bool>> predicate)
         {
-            return await SecureReadQuery().LongCountAsync(predicate);
+            return await FinalizeQuery().LongCountAsync(predicate);
         }
 
         //
@@ -648,7 +648,7 @@ namespace SebasWW.BusinessFramework.Query
         //     source or selector is null.
         public async Task<double> MaxAsync(Expression<Func<TEntry, double>> selector)
         {
-            return await SecureReadQuery().MaxAsync(selector);
+            return await FinalizeQuery().MaxAsync(selector);
         }
 
         //
@@ -675,7 +675,7 @@ namespace SebasWW.BusinessFramework.Query
         //     source or selector is null.
         public async Task<float?> MaxAsync(Expression<Func<TEntry, float?>> selector)
         {
-            return await SecureReadQuery().MaxAsync(selector);
+            return await FinalizeQuery().MaxAsync(selector);
         }
 
         //
@@ -705,7 +705,7 @@ namespace SebasWW.BusinessFramework.Query
         //     The max is larger than System.Int64.MaxValue.
         public async Task<long?> MaxAsync(Expression<Func<TEntry, long?>> selector)
         {
-            return await SecureReadQuery().MaxAsync(selector);
+            return await FinalizeQuery().MaxAsync(selector);
         }
 
         //
@@ -735,7 +735,7 @@ namespace SebasWW.BusinessFramework.Query
         //     The max is larger than System.Int32.MaxValue.
         public async Task<int?> MaxAsync(Expression<Func<TEntry, int?>> selector)
         {
-            return await SecureReadQuery().MaxAsync(selector);
+            return await FinalizeQuery().MaxAsync(selector);
         }
 
         //
@@ -762,7 +762,7 @@ namespace SebasWW.BusinessFramework.Query
         //     source or selector is null.
         public async Task<double?> MaxAsync(Expression<Func<TEntry, double?>> selector)
         {
-            return await SecureReadQuery().MaxAsync(selector);
+            return await FinalizeQuery().MaxAsync(selector);
         }
 
         //
@@ -789,7 +789,7 @@ namespace SebasWW.BusinessFramework.Query
         //     source or selector is null.
         public async Task<float> MaxAsync(Expression<Func<TEntry, float>> selector)
         {
-            return await SecureReadQuery().MaxAsync(selector);
+            return await FinalizeQuery().MaxAsync(selector);
         }
 
         //
@@ -819,7 +819,7 @@ namespace SebasWW.BusinessFramework.Query
         //     The max is larger than System.Decimal.MaxValue.
         public async Task<decimal?> MaxAsync(Expression<Func<TEntry, decimal?>> selector)
         {
-            return await SecureReadQuery().MaxAsync(selector);
+            return await FinalizeQuery().MaxAsync(selector);
         }
 
         //
@@ -849,7 +849,7 @@ namespace SebasWW.BusinessFramework.Query
         //     The max is larger than System.Int64.MaxValue.
         public async Task<long> MaxAsync(Expression<Func<TEntry, long>> selector)
         {
-            return await SecureReadQuery().MaxAsync(selector);
+            return await FinalizeQuery().MaxAsync(selector);
         }
 
         //
@@ -879,7 +879,7 @@ namespace SebasWW.BusinessFramework.Query
         //     The max is larger than System.Int32.MaxValue.
         public async Task<int> MaxAsync(Expression<Func<TEntry, int>> selector)
         {
-            return await SecureReadQuery().MaxAsync(selector);
+            return await FinalizeQuery().MaxAsync(selector);
         }
 
         //
@@ -909,7 +909,7 @@ namespace SebasWW.BusinessFramework.Query
         //     The max is larger than System.Decimal.MaxValue.
         public async Task<decimal> MaxAsync(Expression<Func<TEntry, decimal>> selector)
         {
-            return await SecureReadQuery().MaxAsync(selector);
+            return await FinalizeQuery().MaxAsync(selector);
         }
 
         //
@@ -936,7 +936,7 @@ namespace SebasWW.BusinessFramework.Query
         //     source or selector is null.
         public async Task<double> MinAsync(Expression<Func<TEntry, double>> selector)
         {
-            return await SecureReadQuery().MinAsync(selector);
+            return await FinalizeQuery().MinAsync(selector);
         }
 
         //
@@ -963,7 +963,7 @@ namespace SebasWW.BusinessFramework.Query
         //     source or selector is null.
         public async Task<float?> MinAsync(Expression< Func<TEntry, float?>> selector)
         {
-            return await SecureReadQuery().MinAsync(selector);
+            return await FinalizeQuery().MinAsync(selector);
         }
 
         //
@@ -993,7 +993,7 @@ namespace SebasWW.BusinessFramework.Query
         //     The min is larger than System.Int64.MaxValue.
         public async Task<long?> MinAsync(Expression<Func<TEntry, long?>> selector)
         {
-            return await SecureReadQuery().MinAsync(selector);
+            return await FinalizeQuery().MinAsync(selector);
         }
 
         //
@@ -1023,7 +1023,7 @@ namespace SebasWW.BusinessFramework.Query
         //     The min is larger than System.Int32.MaxValue.
         public async Task<int?> MinAsync(Expression<Func<TEntry, int?>> selector)
         {
-            return await SecureReadQuery().MinAsync(selector);
+            return await FinalizeQuery().MinAsync(selector);
         }
 
         //
@@ -1050,7 +1050,7 @@ namespace SebasWW.BusinessFramework.Query
         //     source or selector is null.
         public async Task<double?> MinAsync(Expression<Func<TEntry, double?>> selector)
         {
-            return await SecureReadQuery().MinAsync(selector);
+            return await FinalizeQuery().MinAsync(selector);
         }
 
         //
@@ -1077,7 +1077,7 @@ namespace SebasWW.BusinessFramework.Query
         //     source or selector is null.
         public async Task<float> MinAsync(Expression<Func<TEntry, float>> selector)
         {
-            return await SecureReadQuery().MinAsync(selector);
+            return await FinalizeQuery().MinAsync(selector);
         }
 
         //
@@ -1107,7 +1107,7 @@ namespace SebasWW.BusinessFramework.Query
         //     The min is larger than System.Decimal.MaxValue.
         public async Task<decimal?> MinAsync(Expression<Func<TEntry, decimal?>> selector)
         {
-            return await SecureReadQuery().MinAsync(selector);
+            return await FinalizeQuery().MinAsync(selector);
         }
 
         //
@@ -1137,7 +1137,7 @@ namespace SebasWW.BusinessFramework.Query
         //     The min is larger than System.Int64.MaxValue.
         public async Task<long> MinAsync(Expression<Func<TEntry, long>> selector)
         {
-            return await SecureReadQuery().MinAsync(selector);
+            return await FinalizeQuery().MinAsync(selector);
         }
 
         //
@@ -1167,7 +1167,7 @@ namespace SebasWW.BusinessFramework.Query
         //     The min is larger than System.Int32.MaxValue.
         public async Task<int> MinAsync(Expression<Func<TEntry, int>> selector)
         {
-            return await SecureReadQuery().MinAsync(selector);
+            return await FinalizeQuery().MinAsync(selector);
         }
 
         //
@@ -1197,7 +1197,7 @@ namespace SebasWW.BusinessFramework.Query
         //     The min is larger than System.Decimal.MaxValue.
         public async Task<decimal> MinAsync(Expression<Func<TEntry, decimal>> selector)
         {
-            return await SecureReadQuery().MinAsync(selector);
+            return await FinalizeQuery().MinAsync(selector);
         }
 
         //
@@ -1224,7 +1224,7 @@ namespace SebasWW.BusinessFramework.Query
         //     source or selector is null.
         public async Task<double> SumAsync(Expression<Func<TEntry, double>> selector)
         {
-            return await SecureReadQuery().SumAsync(selector);
+            return await FinalizeQuery().SumAsync(selector);
         }
 
         //
@@ -1251,7 +1251,7 @@ namespace SebasWW.BusinessFramework.Query
         //     source or selector is null.
         public async Task<double?> SumAsync(Expression<Func<TEntry, float?>> selector)
         {
-            return await SecureReadQuery().SumAsync(selector);
+            return await FinalizeQuery().SumAsync(selector);
         }
 
         //
@@ -1281,7 +1281,7 @@ namespace SebasWW.BusinessFramework.Query
         //     The sum is larger than System.Int64.MaxValue.
         public async Task<Int64?> SumAsync(Expression<Func<TEntry, long?>> selector)
         {
-            return await SecureReadQuery().SumAsync(selector);
+            return await FinalizeQuery().SumAsync(selector);
         }
 
         //
@@ -1311,7 +1311,7 @@ namespace SebasWW.BusinessFramework.Query
         //     The sum is larger than System.Int32.MaxValue.
         public async Task<Int32?> SumAsync(Expression<Func<TEntry, int?>> selector)
         {
-            return await SecureReadQuery().SumAsync(selector);
+            return await FinalizeQuery().SumAsync(selector);
         }
 
         //
@@ -1338,7 +1338,7 @@ namespace SebasWW.BusinessFramework.Query
         //     source or selector is null.
         public async Task<double?> SumAsync(Expression<Func<TEntry, double?>> selector)
         {
-            return await SecureReadQuery().SumAsync(selector);
+            return await FinalizeQuery().SumAsync(selector);
         }
 
         //
@@ -1365,7 +1365,7 @@ namespace SebasWW.BusinessFramework.Query
         //     source or selector is null.
         public async Task<double> SumAsync(Expression<Func<TEntry, float>> selector)
         {
-            return await SecureReadQuery().SumAsync(selector);
+            return await FinalizeQuery().SumAsync(selector);
         }
 
         //
@@ -1395,7 +1395,7 @@ namespace SebasWW.BusinessFramework.Query
         //     The sum is larger than System.Decimal.MaxValue.
         public async Task<decimal?> SumAsync(Expression<Func<TEntry, decimal?>> selector)
         {
-            return await SecureReadQuery().SumAsync(selector);
+            return await FinalizeQuery().SumAsync(selector);
         }
 
         //
@@ -1425,7 +1425,7 @@ namespace SebasWW.BusinessFramework.Query
         //     The sum is larger than System.Int64.MaxValue.
         public async Task<Int64> SumAsync(Expression<Func<TEntry, long>> selector)
         {
-            return await SecureReadQuery().SumAsync(selector);
+            return await FinalizeQuery().SumAsync(selector);
         }
 
         //
@@ -1455,7 +1455,7 @@ namespace SebasWW.BusinessFramework.Query
         //     The sum is larger than System.Int32.MaxValue.
         public async Task<Int32> SumAsync(Expression<Func<TEntry, int>> selector)
         {
-            return await SecureReadQuery().SumAsync(selector);
+            return await FinalizeQuery().SumAsync(selector);
         }
 
         //
@@ -1485,7 +1485,7 @@ namespace SebasWW.BusinessFramework.Query
         //     The sum is larger than System.Decimal.MaxValue.
         public async Task<decimal> SumAsync(Expression<Func<TEntry, decimal>> selector)
         {
-            return await SecureReadQuery().SumAsync(selector);
+            return await FinalizeQuery().SumAsync(selector);
         }
     }
 }

@@ -12,7 +12,7 @@ using SebasWW.BusinessFramework.Tracking;
 
 namespace SebasWW.BusinessFramework
 {
-    public abstract class BusinessManager : IDisposable
+    public abstract class BusinessContext : IDisposable
     {
         //******************************************************
         // properties
@@ -24,11 +24,11 @@ namespace SebasWW.BusinessFramework
         //******************************************************
         // Constructor
         //******************************************************
-        protected BusinessManager(DbContext dbContext, ILogWriter logWriter, IEnumerable<ITracker> trackers)
+        protected BusinessContext(DbContext dbContext, ILogWriter logWriter, IEnumerable<ITracker> trackers)
         {
             DatabaseContext = dbContext;
             LogWriter = logWriter;
-            Trackers = trackers ?? new List<ITracker>();
+            Trackers = trackers;
         }
 
         protected abstract string GetTableName(Type type);
@@ -39,7 +39,7 @@ namespace SebasWW.BusinessFramework
             var list = new List<TrackingParams>();
             var logs = new List<LogEntry>();
 
-            //get list objects
+            // Creating list changed objects
             foreach (var entityEntry in DatabaseContext.ChangeTracker.Entries()
                 .Where(t => t.State == EntityState.Added || t.State == EntityState.Modified))
             {
@@ -53,8 +53,7 @@ namespace SebasWW.BusinessFramework
                         if (prop.IsModified || entityEntry.State == EntityState.Added)
                         {
                             var le = new LogEntry(
-                                    //entry.Entity,
-                                    GetTableName(entityEntry.Entity.GetType()),  // entry.Metadata.Name,
+                                    entityEntry.Metadata.Name,
                                     () => entityEntry.CurrentValues[entityEntry.Metadata.FindPrimaryKey()?.Properties.FirstOrDefault()?.Name],
                                     prop.Metadata.Name,
                                     prop.OriginalValue,
@@ -69,99 +68,63 @@ namespace SebasWW.BusinessFramework
             // no changes
             if (list.Count == 0 )  return;
 
-            //  Track OnChanging
-            foreach(var tracker in Trackers)
-            {
-                list.ForEach(t => tracker.OnChanging(t));
-            }            
+            // Track OnChanging
+            if (Trackers != null)
+                foreach(var tracker in Trackers)
+                    list.ForEach(t => tracker.OnChanging(t));       
 
-            //  light check
+            // light check
             list.ForEach(t => (t as IEntryValidator)?.CheckEntry());
 
-            //  Transaction ******************************************
+            // Transaction ******************************************
             var tran = await DatabaseContext.Database.BeginTransactionAsync(); 
+
             try
             {
-                //  precheck in db
-                await DoCheck(list.Select(t => t.BusinessObject), true);
+                // precheck in db
+                await DoCheckAsync(list.Select(t => t.BusinessObject), true);
 
-                //  save!!!
+                // saving
                 await DatabaseContext.SaveChangesAsync(true);
 
-                //  save logs
-                await LogWriter?.Save(this, logs);
+                // save logs
+                await LogWriter?.SaveAsync(this, logs);
 
-                //  postcheck in db
-                await DoCheck(list.Select(t => t.BusinessObject), false);
-
-                //  Track OnChangedUncommitted
-                foreach (var tracker in Trackers)
-                {
-                    list.ForEach(t => tracker.OnChangedUncommitted(t));
-                }
-
-                tran.Commit();
+                // postcheck in db
+                await DoCheckAsync(list.Select(t => t.BusinessObject), false);
 
                 //  Track OnChangedUncommitted
-                foreach (var tracker in Trackers)
-                {
-                    list.ForEach(t =>
-                    {
-                        try
-                        {
-                            tracker.OnChanged(t);
-                        }
-                        catch (Exception ex)
-                        {
-                            Console.WriteLine("Event Changed: " + t.ToString() + Environment.NewLine + ex.ToString());
-                        }
-                    });
-                }
+                if (Trackers != null)
+                    foreach (var tracker in Trackers)
+                        list.ForEach(t => tracker.OnChangedUncommitted(t));
+
+                await tran.CommitAsync();
+
+                //  Track OnChangedUncommitted
+                if (Trackers != null)
+                    foreach (var tracker in Trackers)
+                        list.ForEach(t =>
+                            {
+                                try
+                                {
+                                    tracker.OnChanged(t);
+                                }
+                                catch (Exception ex)
+                                {
+                                    Console.WriteLine("Event Changed: " + t.ToString() + Environment.NewLine + ex.ToString());
+                                }
+                            }
+                        );
             }
             finally
             {
                 if (DatabaseContext.Database.CurrentTransaction?.TransactionId == tran.TransactionId)
-                    tran.Rollback();
+                    await tran.RollbackAsync();
             }
         }
 
-        async Task DoCheck(IEnumerable<BusinessObjectBase> list, Boolean beforeUpdate)
+        protected virtual async Task DoCheckAsync(IEnumerable<BusinessObjectBase> list, Boolean beforeUpdate)
         {
-            //**********************************************
-            // WriteSecure
-            //**********************************************
-            IQueryable<SecurityErrorEntry> secureQuery = null;
-            WriteSecurityCheck currentSecureQuery;
-
-            foreach (var obj in list.Where(t => t is IWriteSecurable))
-            {
-                currentSecureQuery = await (obj as IWriteSecurable).CheckSecurityAsQuery(true);
-
-                if (currentSecureQuery.State != WriteSecurityState.Allowed)
-                {
-                    // no access
-                    if (currentSecureQuery.State == WriteSecurityState.NoAccess)
-                        throw new WriteSecurityException(0, "ACCESS_DENIED", obj.GetType().Name);
-
-                    if (currentSecureQuery.Queue == null) throw new BusinessException("WriteSecurityCheck with state 'NeedExecute' must have not nullable 'Query' property.");
-
-                    // need check
-                    if (secureQuery == null)
-                        secureQuery = currentSecureQuery.Queue;
-                    else
-                        secureQuery = secureQuery.Union(currentSecureQuery.Queue);
-                }
-            }
-            // db request
-            if (secureQuery != null)
-            {
-                var entry = (await secureQuery.ToArrayAsync()).FirstOrDefault();
-                if (entry != null)
-                {
-                    throw new WriteSecurityException(entry);
-                }
-            }
-
             //**********************************************
             // Data Consistency
             //**********************************************
@@ -189,10 +152,20 @@ namespace SebasWW.BusinessFramework
         ConcurrentDictionary<object, BusinessObjectBase> _entries = new ConcurrentDictionary<object, BusinessObjectBase>();
 
         // create object from entity
-        protected internal TObject CreateBusinessObject<TObject, TEntry, TKey>(BusinessObjectFactory< TObject, TEntry, TKey> factory, TEntry entry)
+        protected internal virtual TObject CreateBusinessObject<TObject, TEntry, TKey>(BusinessObjectFactory<TObject, TEntry, TKey> factory, TEntry entry)
             where TObject : BusinessObject<TEntry, TKey> 
             where TEntry : class
         {
+            if (factory is null)
+            {
+                throw new ArgumentNullException(nameof(factory));
+            }
+
+            if (entry is null)
+            {
+                throw new ArgumentNullException(nameof(entry));
+            }
+
             return (TObject)_entries.GetOrAdd(entry, k => factory.CreateInstance(this, entry));
         }
 

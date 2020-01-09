@@ -16,7 +16,7 @@ namespace SebasWW.BusinessFramework.Query
         public BusinessOrderedQuery(
             BusinessQuery<TCollection, TReadOnlyCollection, TObject, TEntry, TKey> businessQuery,
             IOrderedQueryable<TEntry> query
-            ) :base(businessQuery.BusinessQueryContext,query)
+            ) : base(businessQuery.BusinessQueryContext, query)
         {
             _orderedQueryable = query;
         }

@@ -7,6 +7,6 @@ namespace SebasWW.BusinessFramework.Log
 {
     public interface ILogWriter
     {
-        Task Save(BusinessManager context, IEnumerable<LogEntry> logs);
+        Task SaveAsync(BusinessContext context, IEnumerable<LogEntry> logs);
     }
 }

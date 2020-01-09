@@ -6,11 +6,11 @@ namespace SebasWW.BusinessFramework
 {
     public class WriteSecurityException : BusinessException
     {
-        internal WriteSecurityException(object id, string key, string message) : base(key, message)
+        internal WriteSecurityException(object id, string key, string message) : base( message)
         {
             Id = id;
         }
-        internal WriteSecurityException(SecurityErrorEntry entry) : base(entry.Key, entry.Message)
+        internal WriteSecurityException(SecurityErrorEntry entry) : base(entry.Message)
         {
             Id = entry.Id;
         }

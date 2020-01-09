@@ -5,15 +5,15 @@ using SebasWW.BusinessFramework.Factory;
 
 namespace MyCompany.MyApp.Entity
 {
-    public abstract class MyAppCollection<TObject, TEntry> : BusinessCollection<TObject, TEntry, Int32>
+    public abstract class MyAppCollection<TObject, TEntry> : BusinessCollection<TObject, TEntry, int>
         where TEntry : class
-        where TObject : BusinessObject<TEntry, Int32>
+        where TObject : BusinessObject<TEntry, int>
     {
         internal MyAppCollection(
-            BusinessManager BusinessContext, 
+            BusinessContext BusinessContext, 
             ICollection<TEntry> entrySet, 
-            Func<TEntry, Int32> keySelector,
-            BusinessObjectFactory<TObject, TEntry, Int32> factory
+            Func<TEntry, int> keySelector,
+            BusinessObjectFactory<TObject, TEntry, int> factory
             )
              : base(BusinessContext, entrySet, keySelector, factory) { }
     }

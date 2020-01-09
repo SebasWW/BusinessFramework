@@ -52,7 +52,7 @@ namespace SebasWW.BusinessFramework.Query
             where TResult : class
             where TInner : class
         {
-            return new BusinessQueryEnumerableResult<TResult>(SecureReadQuery().Join(inner.GetQuery(), outerKeySelector, innerKeySelector, resultSelector));
+            return new BusinessQueryEnumerableResult<TResult>(FinalizeQuery().Join(inner.GetQuery(), outerKeySelector, innerKeySelector, resultSelector));
         }
 
         //
@@ -103,7 +103,7 @@ namespace SebasWW.BusinessFramework.Query
             where TResult : class
             where TInner : class
         {
-            return new BusinessQueryEnumerableResult<TResult>(SecureReadQuery().Join(inner.GetQuery(), outerKeySelector, innerKeySelector, resultSelector, comparer));
+            return new BusinessQueryEnumerableResult<TResult>(FinalizeQuery().Join(inner.GetQuery(), outerKeySelector, innerKeySelector, resultSelector, comparer));
         }
 
         //
@@ -134,7 +134,7 @@ namespace SebasWW.BusinessFramework.Query
         public BusinessQueryEnumerableResult<TResult> Select<TResult>(Expression<Func<TEntry, TResult>> selector)
             where TResult : class
         {
-            return new BusinessQueryEnumerableResult<TResult>(SecureReadQuery().Select(selector));
+            return new BusinessQueryEnumerableResult<TResult>(FinalizeQuery().Select(selector));
         }
 
         //
@@ -167,7 +167,7 @@ namespace SebasWW.BusinessFramework.Query
         public BusinessQueryEnumerableResult<TResult> Select<TResult>(Expression<Func<TEntry, int, TResult>> selector)
             where TResult : class
         {
-            return new BusinessQueryEnumerableResult<TResult>(SecureReadQuery().Select(selector));
+            return new BusinessQueryEnumerableResult<TResult>(FinalizeQuery().Select(selector));
         }
 
         //
@@ -210,7 +210,7 @@ namespace SebasWW.BusinessFramework.Query
         public BusinessQueryEnumerableResult<TResult> SelectMany<TManyCollection, TResult>(Expression<Func<TEntry, int, IEnumerable<TManyCollection>>> collectionSelector, Expression<Func<TEntry, TManyCollection, TResult>> resultSelector)
             where TResult : class
         {
-            return new BusinessQueryEnumerableResult<TResult>(SecureReadQuery().SelectMany(collectionSelector, resultSelector));
+            return new BusinessQueryEnumerableResult<TResult>(FinalizeQuery().SelectMany(collectionSelector, resultSelector));
         }
 
         //
@@ -251,7 +251,7 @@ namespace SebasWW.BusinessFramework.Query
         public BusinessQueryEnumerableResult<TResult> SelectMany<TManyCollection, TResult>(Expression<Func<TEntry, IEnumerable<TManyCollection>>> collectionSelector, Expression<Func<TEntry, TManyCollection, TResult>> resultSelector)
             where TResult : class
         {
-            return new BusinessQueryEnumerableResult<TResult>(SecureReadQuery().SelectMany(collectionSelector, resultSelector));
+            return new BusinessQueryEnumerableResult<TResult>(FinalizeQuery().SelectMany(collectionSelector, resultSelector));
         }
 
         //
@@ -285,7 +285,7 @@ namespace SebasWW.BusinessFramework.Query
         public BusinessQueryEnumerableResult<TResult> SelectMany<TResult>(Expression<Func<TEntry, int, IEnumerable<TResult>>> selector)
             where TResult : class
         {
-            return new BusinessQueryEnumerableResult<TResult>(SecureReadQuery().SelectMany(selector));
+            return new BusinessQueryEnumerableResult<TResult>(FinalizeQuery().SelectMany(selector));
         }
 
         //
@@ -317,7 +317,7 @@ namespace SebasWW.BusinessFramework.Query
         public BusinessQueryEnumerableResult<TResult> SelectMany<TResult>(Expression<Func<TEntry, IEnumerable<TResult>>> selector)
             where TResult : class
         {
-            return new BusinessQueryEnumerableResult<TResult>(SecureReadQuery().SelectMany(selector));
+            return new BusinessQueryEnumerableResult<TResult>(FinalizeQuery().SelectMany(selector));
         }
 
         //
@@ -356,7 +356,7 @@ namespace SebasWW.BusinessFramework.Query
             where TResult : class
             where TSecond : class
         {
-            return new BusinessQueryEnumerableResult<TResult>(SecureReadQuery().Zip(second.GetQuery(), resultSelector));
+            return new BusinessQueryEnumerableResult<TResult>(FinalizeQuery().Zip(second.GetQuery(), resultSelector));
         }
     }
 }

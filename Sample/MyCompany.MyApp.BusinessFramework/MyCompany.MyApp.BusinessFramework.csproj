@@ -2,9 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>MyCompany.MyApp</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\SebasWW.BusinessFramework.Security\SebasWW.BusinessFramework.Security.csproj" />
     <ProjectReference Include="..\..\SebasWW.BusinessFramework\SebasWW.BusinessFramework.csproj" />
     <ProjectReference Include="..\MyCompany.MyApp.EntityFramework\MyCompany.MyApp.EntityFramework.csproj" />
   </ItemGroup>

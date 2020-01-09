@@ -1,16 +1,20 @@
 ﻿using System;
+using System.Security.Principal;
 
 namespace SebasWW.BusinessFramework.Authentification
 {
-    public class AuthentificatedUser 
+    public class AuthentificatedUser : IIdentity
     {
-        internal AuthentificatedUser(Int32 id, String name)
+        public  AuthentificatedUser(string name, string authenticationType)
         {
-            Id = id;
             Name = name;
+            AuthenticationType = authenticationType;
         }
 
-        public Int32 Id { get; private set; }
-        public String Name { get; private set; }
+        public string Name { get; }
+
+        public string AuthenticationType { get; }
+
+        public bool IsAuthenticated => true;
     }
 }

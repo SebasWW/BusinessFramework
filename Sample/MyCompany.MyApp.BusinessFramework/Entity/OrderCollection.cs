@@ -1,21 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using MyCompany.MyApp.EntityFramework;
-using MyCompany.MyApp.Factory.Working;
+﻿using System.Collections.Generic;
 using MyCompany.MyApp.EntityFramework.Entity;
+using MyCompany.MyApp.Factory;
 using SebasWW.BusinessFramework;
 
-namespace MyCompany.MyApp.Entity.Working
+namespace MyCompany.MyApp.Entity
 {
     public class OrderCollection : MyAppCollection<Order, DTOrder>
     {
-        internal OrderCollection(BusinessManager BusinessContext, ICollection<DTOrder> entrySet)
+        internal OrderCollection(BusinessContext BusinessContext, ICollection<DTOrder> entrySet)
              : base(BusinessContext, entrySet, t => t.Id, OrderFactory.Current) { }
     }
 
     public class OrderReadOnlyCollection : MyAppReadOnlyCollection<Order, DTOrder>
     {
-        internal OrderReadOnlyCollection(BusinessManager BusinessContext, ICollection<DTOrder> entrySet)
+        internal OrderReadOnlyCollection(BusinessContext BusinessContext, ICollection<DTOrder> entrySet)
              : base(BusinessContext, entrySet, t => t.Id, OrderFactory.Current) { }
     }
 }

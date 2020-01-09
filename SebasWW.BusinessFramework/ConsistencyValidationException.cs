@@ -1,20 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SebasWW.BusinessFramework
+﻿namespace SebasWW.BusinessFramework
 {
     public class ConsistencyValidationException : BusinessException
     {
-        internal ConsistencyValidationException(object id, string key, string message) : base(key, message)
+        internal ConsistencyValidationException(object id, string key, string message) : base( message)
         {
             Id = id;
-        }
-        internal ConsistencyValidationException(ConsistencyErrorEntry entry) : base(entry.Key, entry.Message)
-        {
-            Id = entry.Id;
+            Key = key;
         }
 
-        public object Id { get; private set; }
+        internal ConsistencyValidationException(ConsistencyErrorEntry entry) : base(entry.Message)
+        {
+            Id = entry.Id;
+            Key = entry.Key;
+        }
+
+        public object Id { get;}
+        public string Key { get; }
     }
 }

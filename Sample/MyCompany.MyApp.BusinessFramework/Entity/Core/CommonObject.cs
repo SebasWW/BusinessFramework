@@ -8,7 +8,7 @@ namespace MyCompany.MyApp.Entity.Core
     {
         Func<TEntry, Int32> _suidSelector;
 
-        internal CommonObject(BusinessManager BusinessContext, TEntry entry, Func<TEntry,Int32> suidSelector)
+        internal CommonObject(BusinessContext BusinessContext, TEntry entry, Func<TEntry,Int32> suidSelector)
             :base(BusinessContext, entry)
         {
             _suidSelector = suidSelector;

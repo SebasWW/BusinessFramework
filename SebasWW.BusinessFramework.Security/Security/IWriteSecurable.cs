@@ -6,6 +6,6 @@ namespace SebasWW.BusinessFramework.Security
 {
     public interface IWriteSecurable
     {
-        Task<WriteSecurityCheck> CheckSecurityAsQuery(Boolean beforeUpdate);
+        Task<WriteSecurityCheck> CheckSecurityAsQuery(BusinessContext businessManager, bool beforeUpdate);
     }
 }

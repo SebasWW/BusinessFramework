@@ -5,13 +5,13 @@ using MyCompany.MyApp.EntityFramework;
 using MyCompany.MyApp.EntityFramework.Entity;
 using SebasWW.BusinessFramework;
 
-namespace MyCompany.MyApp.Entity.Working
+namespace MyCompany.MyApp.Entity
 {
     public sealed class Order :
         MyAppObject<DTOrder>,
         IRemovable, IConsistencyValidator
     {
-        internal Order(BusinessManager businessManager, DTOrder entry)
+        internal Order(BusinessContext businessManager, DTOrder entry)
             : base(businessManager, entry) { }
 
         internal Order(DTOrder entry)
@@ -23,7 +23,7 @@ namespace MyCompany.MyApp.Entity.Working
         // Свойства	
         // *************************************
         public int Id { get => Entry.Id; }
-        public bool IsDeleted { get => ((BusinessManager as MyAppManager).DbContext.ChangeTracker.Entries<DTOrder>().FirstOrDefault(t => t.Entity.Id == Id)?.State ?? EntityState.Detached) == EntityState.Deleted; }
+        public bool IsDeleted { get => ((BusinessManager as MyAppBusinessContext).DbContext.ChangeTracker.Entries<DTOrder>().FirstOrDefault(t => t.Entity.Id == Id)?.State ?? EntityState.Detached) == EntityState.Deleted; }
         
         public string Name { get => Entry.Name; set => Entry.Name = value; }
 
@@ -108,22 +108,22 @@ namespace MyCompany.MyApp.Entity.Working
         // ************************************
         protected override void OnBusinessManagerChange()
         {
-            OrderRooms.BusinessManager = BusinessManager;
+            //OrderRooms.BusinessManager = BusinessManager;
         }
 
         // *************************************	
         // Methods
         // ************************************
-        public void Remove()
-        {
-            OnRemove();
-        }
+        //public void Remove()
+        //{
+        //    OnRemove();
+        //}
 
         protected override void OnRemove()
         {
-            OrderRooms.Clear();
+            // OrderRooms.Clear();
 
-            Entry.SArchive = 1;
+            ((BusinessManager as MyAppBusinessContext).DbContext as MyAppDbContext).Orders.Remove(Entry); //Entry.SArchive = 1;
         }
     }
 }

@@ -10,7 +10,7 @@ namespace MyCompany.MyApp.Log
 {
     internal class LogWriter : ILogWriter
     {
-        public async Task Save(BusinessManager context, IEnumerable<LogEntry> logs)
+        public async Task SaveAsync(BusinessContext context, IEnumerable<LogEntry> logs)
         {
             foreach( var l in logs)
             {
@@ -23,13 +23,13 @@ namespace MyCompany.MyApp.Log
                 log.RowId = (Int32)l.PrimaryKey;
                 log.ColumnName = l.PropertyName;
                 log.Value = l.NewValue?.ToString();
-                log.UserId = ((MyAppManager)context).User.Id;
+                log.UserId = ((MyAppBusinessContext)context).User.Id;
 				log.SArchive = 0;
 
-                ((MyAppManager) context).DbContext.Set<SLog>().Add(log);
+                ((MyAppBusinessContext) context).DbContext.Set<SLog>().Add(log);
             }
 
-           await (context as MyAppManager).DbContext.SaveChangesAsync();
+           await (context as MyAppBusinessContext).DbContext.SaveChangesAsync();
         }
     }
 }

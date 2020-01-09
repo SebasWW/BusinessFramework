@@ -1,47 +1,42 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Linq;
 using SebasWW.BusinessFramework.Factory;
 using SebasWW.BusinessFramework.Security;
 
 namespace SebasWW.BusinessFramework.Query
 {
-	public class BusinessQueryContext<TCollection, TReadOnlyCollection, TObject, TEntry, TKey>
+    public class BusinessQueryContext<TCollection, TReadOnlyCollection, TObject, TEntry, TKey>
         where TCollection : BusinessCollection<TObject, TEntry, TKey>
         where TReadOnlyCollection : BusinessReadOnlyCollection<TObject, TEntry, TKey>
         where TObject : BusinessObject<TEntry, TKey>
         where TEntry : class
     {
-        internal BusinessManager BusinessContext;
-        internal BusinessObjectFactory<TObject, TEntry, TKey> ObjectFactory;
-        internal BusinessCollectionFactory<TCollection, TReadOnlyCollection, TObject, TEntry, TKey> CollectionFactory;
 
-        internal Boolean IsSecured;
-        internal ReadSecurityFilter<TEntry> ObjectSecurity;
-
-        public BusinessQueryContext
-            (
-                BusinessManager businessContext,
-                BusinessObjectFactory<TObject, TEntry, TKey> objectFactory,
-                BusinessCollectionFactory<TCollection, TReadOnlyCollection, TObject, TEntry, TKey> collectionFactory
-            )
-        {
-            BusinessContext = businessContext;
-            ObjectFactory = objectFactory;
-            CollectionFactory = collectionFactory;
-            IsSecured = true;
-        }
+        internal readonly BusinessObjectFactory<TObject, TEntry, TKey> ObjectFactory;
+        internal readonly BusinessCollectionFactory<TCollection, TReadOnlyCollection, TObject, TEntry, TKey> CollectionFactory;
+        internal readonly IImmutableDictionary<object, Func<IQueryable<TEntry>, BusinessQueryContext<TCollection, TReadOnlyCollection, TObject, TEntry, TKey>, IQueryable<TEntry>>> CustomFunctions;
+        internal readonly Func<IQueryable<TEntry>, BusinessQueryContext<TCollection, TReadOnlyCollection, TObject, TEntry, TKey>, IQueryable<TEntry>> FinalizingFunction;
 
         public BusinessQueryContext
             (
-                BusinessManager businessContext,
+                BusinessContext businessContext,
                 BusinessObjectFactory<TObject, TEntry, TKey> objectFactory,
                 BusinessCollectionFactory<TCollection, TReadOnlyCollection, TObject, TEntry, TKey> collectionFactory,
-                ReadSecurityFilter<TEntry> objectSecurity
+                IDictionary<object, Func<IQueryable<TEntry>, BusinessQueryContext<TCollection, TReadOnlyCollection, TObject, TEntry, TKey>, IQueryable<TEntry>>> customFunctions = null,
+                Func<IQueryable<TEntry>, BusinessQueryContext<TCollection, TReadOnlyCollection, TObject, TEntry, TKey>, IQueryable<TEntry>> finalizingFunction = null
             )
         {
             BusinessContext = businessContext;
             ObjectFactory = objectFactory;
             CollectionFactory = collectionFactory;
-            ObjectSecurity = objectSecurity;
+            CustomFunctions = customFunctions.ToImmutableDictionary();
+            FinalizingFunction = finalizingFunction;
         }
+
+        public Dictionary<object, object> Properties { get; } = new Dictionary<object, object>();
+
+        public BusinessContext BusinessContext { get; }
     }
 }

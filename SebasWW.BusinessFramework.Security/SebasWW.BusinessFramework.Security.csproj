@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Sample\MyCompany.MyApp.EntityFramework\MyCompany.MyApp.EntityFramework.csproj" />
     <ProjectReference Include="..\SebasWW.BusinessFramework\SebasWW.BusinessFramework.csproj" />
   </ItemGroup>
 

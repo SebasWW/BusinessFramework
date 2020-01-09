@@ -10,8 +10,8 @@ namespace SebasWW.BusinessFramework.Factory
     {
         protected static object objLock = new object();
 
-        protected abstract TObject OnCreateInstance(BusinessManager context, TEntry entry);
-        internal TObject CreateInstance(BusinessManager context, TEntry entry)
+        protected abstract TObject OnCreateInstance(BusinessContext context, TEntry entry);
+        internal TObject CreateInstance(BusinessContext context, TEntry entry)
         {
             return OnCreateInstance(context, entry);
         }

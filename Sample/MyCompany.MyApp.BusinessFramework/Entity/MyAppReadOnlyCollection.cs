@@ -10,7 +10,7 @@ namespace MyCompany.MyApp.Entity
         where TEntry : class
         where TObject : BusinessObject<TEntry, Int32>
     {
-        internal MyAppReadOnlyCollection(BusinessManager BusinessContext, ICollection<TEntry> entrySet, Func<TEntry, Int32> keySelector, BusinessObjectFactory<TObject, TEntry, Int32> factory)
+        internal MyAppReadOnlyCollection(BusinessContext BusinessContext, ICollection<TEntry> entrySet, Func<TEntry, Int32> keySelector, BusinessObjectFactory<TObject, TEntry, Int32> factory)
              : base(BusinessContext, entrySet, keySelector, factory) { }
     }
 }

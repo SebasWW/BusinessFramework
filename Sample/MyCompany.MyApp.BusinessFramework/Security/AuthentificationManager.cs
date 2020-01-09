@@ -34,7 +34,7 @@ namespace SebasWW.BusinessFramework.Authentification
 
                 if (user == null) throw new AuthentificationException();
 
-                return new AuthentificatedUser( user.Id, user.FirstName + " " + user.LastName); 
+                return new AuthentificatedUser<int>(user.Id, user.FirstName + " " + user.LastName, "MY_OAUTH"); 
             }
         }
     }

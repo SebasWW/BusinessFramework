@@ -12,8 +12,8 @@ namespace SebasWW.BusinessFramework.Factory
     {
         protected static object objLock = new object();
 
-        protected abstract TCollection OnCreateInstance(BusinessManager context, ICollection<TEntry> entries);
-        internal TCollection CreateInstance(BusinessManager context, ICollection<TEntry> entries)
+        protected abstract TCollection OnCreateInstance(BusinessContext context, ICollection<TEntry> entries);
+        internal TCollection CreateInstance(BusinessContext context, ICollection<TEntry> entries)
         {
             return OnCreateInstance(context, entries);
         }

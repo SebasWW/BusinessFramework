@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
@@ -8,64 +9,45 @@ using Microsoft.EntityFrameworkCore;
 
 namespace SebasWW.BusinessFramework.Query
 {
-    public partial class BusinessQuery<TCollection, TReadOnlyCollection, TObject, TEntry, TKey>: 
+    public partial class BusinessQuery<TCollection, TReadOnlyCollection, TObject, TEntry, TKey> : 
         BusinessQueryEnumerableResult<TEntry>
-        where TCollection:BusinessCollection<TObject, TEntry, TKey>
+        where TCollection : BusinessCollection<TObject, TEntry, TKey>
         where TReadOnlyCollection : BusinessReadOnlyCollection<TObject, TEntry, TKey>
         where TObject : BusinessObject<TEntry, TKey> 
         where TEntry : class
     {
-        internal BusinessQueryContext<TCollection, TReadOnlyCollection, TObject, TEntry, TKey> BusinessQueryContext;
+        internal readonly BusinessQueryContext<TCollection, TReadOnlyCollection, TObject, TEntry, TKey> BusinessQueryContext;
 
         public BusinessQuery(
             BusinessQueryContext<TCollection, TReadOnlyCollection, TObject, TEntry, TKey> businessQueryContext,
             IQueryable<TEntry> query
-            ) :base(query)
+        ) : base(query)
         {
             BusinessQueryContext = businessQueryContext;
         }
 
-		public async Task LoadAsync(CancellationToken cancellationToken = default)
+        public async Task LoadAsync(CancellationToken cancellationToken = default)
 		{
-			if (!BusinessQueryContext.IsSecured)
-			{
-				Query = BusinessQueryContext.ObjectSecurity.ReadSecure(BusinessQueryContext.BusinessContext, Query);
-				BusinessQueryContext.IsSecured = true;
-			}
-
-			await Query.LoadAsync();
+            await FinalizeQuery().LoadAsync(cancellationToken);
 		}
-
-		#region Secure
-
-		internal override IQueryable<TEntry> GetQuery()
+         
+        public BusinessQuery<TCollection, TReadOnlyCollection, TObject, TEntry, TKey> ExecCustomFunction(object customFuncKey)
         {
-            var query = Query;
-            if (!BusinessQueryContext.IsSecured)
-                query = BusinessQueryContext.ObjectSecurity.ReadSecure(BusinessQueryContext.BusinessContext, query);
+            if (BusinessQueryContext.CustomFunctions == null) throw new InvalidOperationException("Custom functions is not initialized.");
 
-            return query;
-        }
-
-        public BusinessQuery<TCollection, TReadOnlyCollection, TObject, TEntry, TKey> SecureRead()
-        {
-            SecureReadQuery();
-
+            Query = BusinessQueryContext.CustomFunctions[customFuncKey].Invoke(Query, BusinessQueryContext);
             return this;
         }
 
-        private IQueryable<TEntry> SecureReadQuery()
+        private IQueryable<TEntry> FinalizeQuery()
         {
-            if (!BusinessQueryContext.IsSecured)
-            {
-                Query = BusinessQueryContext.ObjectSecurity.ReadSecure(BusinessQueryContext.BusinessContext, Query);
-                BusinessQueryContext.IsSecured = true;
-            }
-
-            return Query;
+            return BusinessQueryContext.FinalizingFunction.Invoke(Query, BusinessQueryContext);
         }
 
-		#endregion
+		internal override IQueryable<TEntry> GetQuery()
+        {
+            return FinalizeQuery();
+        }
 
 		#region OrderBy
 		//
@@ -271,7 +253,7 @@ namespace SebasWW.BusinessFramework.Query
         public TObject Aggregate(Expression<Func<TEntry, TEntry, TEntry>> func)
         {
 
-            return BusinessQueryContext.BusinessContext.CreateBusinessObject(BusinessQueryContext.ObjectFactory, SecureReadQuery().Aggregate(func));
+            return BusinessQueryContext.BusinessContext.CreateBusinessObject(BusinessQueryContext.ObjectFactory, FinalizeQuery().Aggregate(func));
         }
 
         //
@@ -300,7 +282,7 @@ namespace SebasWW.BusinessFramework.Query
         //     index is less than zero.
         public TObject ElementAt( int index)
         {
-            return BusinessQueryContext.BusinessContext.CreateBusinessObject(BusinessQueryContext.ObjectFactory, SecureReadQuery().ElementAt(index));
+            return BusinessQueryContext.BusinessContext.CreateBusinessObject(BusinessQueryContext.ObjectFactory, FinalizeQuery().ElementAt(index));
         }
 
         //
@@ -329,7 +311,7 @@ namespace SebasWW.BusinessFramework.Query
 
         public TObject ElementAtOrDefault( int index)
         {
-            return BusinessQueryContext.BusinessContext.CreateBusinessObject(BusinessQueryContext.ObjectFactory, SecureReadQuery().ElementAtOrDefault(index));
+            return BusinessQueryContext.BusinessContext.CreateBusinessObject(BusinessQueryContext.ObjectFactory, FinalizeQuery().ElementAtOrDefault(index));
         }
 
         //
@@ -355,7 +337,7 @@ namespace SebasWW.BusinessFramework.Query
         //     The source sequence is empty.
         public async Task<TObject> FirstAsync()
         {
-            return BusinessQueryContext.BusinessContext.CreateBusinessObject(BusinessQueryContext.ObjectFactory, await SecureReadQuery().FirstAsync());
+            return BusinessQueryContext.BusinessContext.CreateBusinessObject(BusinessQueryContext.ObjectFactory, await FinalizeQuery().FirstAsync());
         }
 
         //
@@ -381,7 +363,7 @@ namespace SebasWW.BusinessFramework.Query
         //     The source sequence is empty.
         public TObject First()
         {
-            return BusinessQueryContext.BusinessContext.CreateBusinessObject(BusinessQueryContext.ObjectFactory, SecureReadQuery().First());
+            return BusinessQueryContext.BusinessContext.CreateBusinessObject(BusinessQueryContext.ObjectFactory, FinalizeQuery().First());
         }
 
         //
@@ -411,7 +393,7 @@ namespace SebasWW.BusinessFramework.Query
         //     empty.
         public async Task<TObject> FirstAsync( Expression<Func<TEntry, bool>> predicate)
         {
-            return BusinessQueryContext.BusinessContext.CreateBusinessObject<TObject, TEntry, TKey>(BusinessQueryContext.ObjectFactory, await SecureReadQuery().FirstAsync(predicate));
+            return BusinessQueryContext.BusinessContext.CreateBusinessObject<TObject, TEntry, TKey>(BusinessQueryContext.ObjectFactory, await FinalizeQuery().FirstAsync(predicate));
         }
 
         //
@@ -435,7 +417,7 @@ namespace SebasWW.BusinessFramework.Query
         //     source is null.
         public async Task<TObject> FirstOrDefaultAsync()
         {
-            return BusinessQueryContext.BusinessContext.CreateBusinessObject(BusinessQueryContext.ObjectFactory, await SecureReadQuery().FirstOrDefaultAsync());
+            return BusinessQueryContext.BusinessContext.CreateBusinessObject(BusinessQueryContext.ObjectFactory, await FinalizeQuery().FirstOrDefaultAsync());
         }
         //
         // Summary:
@@ -458,7 +440,7 @@ namespace SebasWW.BusinessFramework.Query
         //     source is null.
         public TObject FirstOrDefault()
         {
-            var result = SecureReadQuery().FirstOrDefault();
+            var result = FinalizeQuery().FirstOrDefault();
             if (result == null)
                 return null;
             else 
@@ -491,7 +473,7 @@ namespace SebasWW.BusinessFramework.Query
         //     source or predicate is null.
         public async Task<TObject> FirstOrDefaultAsync(Expression<Func<TEntry, bool>> predicate)
         {
-            var result = await SecureReadQuery().FirstOrDefaultAsync(predicate);
+            var result = await FinalizeQuery().FirstOrDefaultAsync(predicate);
             if (result == null)
                 return null;
             else
@@ -525,7 +507,7 @@ namespace SebasWW.BusinessFramework.Query
         //     empty.
         public async Task<TObject> LastAsync(Expression<Func<TEntry, bool>> predicate)
         {
-            return BusinessQueryContext.BusinessContext.CreateBusinessObject(BusinessQueryContext.ObjectFactory, await SecureReadQuery().LastAsync(predicate));
+            return BusinessQueryContext.BusinessContext.CreateBusinessObject(BusinessQueryContext.ObjectFactory, await FinalizeQuery().LastAsync(predicate));
         }
         
         //
@@ -551,7 +533,7 @@ namespace SebasWW.BusinessFramework.Query
         //     The source sequence is empty.
         public async Task<TObject> LastAsync()
         {
-            return BusinessQueryContext.BusinessContext.CreateBusinessObject(BusinessQueryContext.ObjectFactory,await SecureReadQuery().LastAsync());
+            return BusinessQueryContext.BusinessContext.CreateBusinessObject(BusinessQueryContext.ObjectFactory,await FinalizeQuery().LastAsync());
         }
         
         //
@@ -580,7 +562,7 @@ namespace SebasWW.BusinessFramework.Query
         //     source or predicate is null.
         public async Task<TObject> LastOrDefaultAsync(Expression<Func<TEntry, bool>> predicate)
         {
-            var result = await SecureReadQuery().LastOrDefaultAsync(predicate);
+            var result = await FinalizeQuery().LastOrDefaultAsync(predicate);
             if (result == null)
                 return null;
             else
@@ -608,7 +590,7 @@ namespace SebasWW.BusinessFramework.Query
         //     source is null.
         public async Task<TObject> LastOrDefaultAsync()
         {
-            var result = await SecureReadQuery().LastOrDefaultAsync();
+            var result = await FinalizeQuery().LastOrDefaultAsync();
             if (result == null)
                 return null;
             else
@@ -635,7 +617,7 @@ namespace SebasWW.BusinessFramework.Query
         //     source is null.
         public async Task<TObject> MaxAsync()
         {
-            return BusinessQueryContext.BusinessContext.CreateBusinessObject(BusinessQueryContext.ObjectFactory, await SecureReadQuery().MaxAsync());
+            return BusinessQueryContext.BusinessContext.CreateBusinessObject(BusinessQueryContext.ObjectFactory, await FinalizeQuery().MaxAsync());
         }
 
         //
@@ -658,7 +640,7 @@ namespace SebasWW.BusinessFramework.Query
         //     source is null.
         public async Task<TObject> MinAsync()
         {
-            return BusinessQueryContext.BusinessContext.CreateBusinessObject(BusinessQueryContext.ObjectFactory, await SecureReadQuery().MinAsync());
+            return BusinessQueryContext.BusinessContext.CreateBusinessObject(BusinessQueryContext.ObjectFactory, await FinalizeQuery().MinAsync());
         }
 
         //
@@ -685,7 +667,7 @@ namespace SebasWW.BusinessFramework.Query
         //     source has more than one element.
         public async Task<TObject> SingleAsync()
         {
-            return BusinessQueryContext.BusinessContext.CreateBusinessObject(BusinessQueryContext.ObjectFactory, await SecureReadQuery().SingleAsync());
+            return BusinessQueryContext.BusinessContext.CreateBusinessObject(BusinessQueryContext.ObjectFactory, await FinalizeQuery().SingleAsync());
         }
 
         //
@@ -716,7 +698,7 @@ namespace SebasWW.BusinessFramework.Query
         //     the condition in predicate. -or- The source sequence is empty.
         public async Task<TObject> SingleAsync(Expression<Func<TEntry, bool>> predicate)
         {
-            return BusinessQueryContext.BusinessContext.CreateBusinessObject(BusinessQueryContext.ObjectFactory, await SecureReadQuery().SingleAsync(predicate));
+            return BusinessQueryContext.BusinessContext.CreateBusinessObject(BusinessQueryContext.ObjectFactory, await FinalizeQuery().SingleAsync(predicate));
         }
 
         //
@@ -745,7 +727,7 @@ namespace SebasWW.BusinessFramework.Query
         //     source has more than one element.
         public async Task<TObject> SingleOrDefaultAsync()
         {
-            var result = await SecureReadQuery().SingleOrDefaultAsync();
+            var result = await FinalizeQuery().SingleOrDefaultAsync();
             if (result == null)
                 return null;
             else
@@ -781,7 +763,7 @@ namespace SebasWW.BusinessFramework.Query
         //     More than one element satisfies the condition in predicate.
         public async Task<TObject> SingleOrDefaultAsync(Expression<Func<TEntry, bool>> predicate)
         {
-            var result = await SecureReadQuery().SingleOrDefaultAsync(predicate);
+            var result = await FinalizeQuery().SingleOrDefaultAsync(predicate);
             if (result == null)
                 return null;
             else
@@ -819,7 +801,7 @@ namespace SebasWW.BusinessFramework.Query
 
         public async Task<TCollection> ToCollectionAsync()
         {
-            return BusinessQueryContext.CollectionFactory.CreateInstance(BusinessQueryContext.BusinessContext, await SecureReadQuery().ToArrayAsync());
+            return BusinessQueryContext.CollectionFactory.CreateInstance(BusinessQueryContext.BusinessContext, await FinalizeQuery().ToArrayAsync());
         }
         //public TReadOnlyCollection ToReadOnlyCollection()
         //{

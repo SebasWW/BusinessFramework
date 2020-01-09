@@ -18,7 +18,7 @@ namespace SebasWW.BusinessFramework
 
         List<TObject> _dicObj;
 
-        BusinessManager _BusinessContext;
+        BusinessContext _BusinessContext;
         ICollection<TEntry> _entrySet;
         Func<TEntry, TKey> _keySelector;
         BusinessObjectFactory<TObject, TEntry, TKey> _factory;
@@ -26,7 +26,7 @@ namespace SebasWW.BusinessFramework
         protected Func<TEntry, TKey> KeySelector { get => _keySelector; }
 
         protected virtual ICollection<TEntry> EntrySet { get => _entrySet; }
-        public BusinessManager BusinessManager
+        public BusinessContext BusinessManager
         {
             get => _BusinessContext;
             set//protected internal 
@@ -43,7 +43,7 @@ namespace SebasWW.BusinessFramework
             }
         }
 
-        protected BusinessReadOnlyCollection(BusinessManager BusinessContext, ICollection<TEntry> entrySet, Func<TEntry, TKey> keySelector, BusinessObjectFactory<TObject, TEntry, TKey> factory)
+        protected BusinessReadOnlyCollection(BusinessContext BusinessContext, ICollection<TEntry> entrySet, Func<TEntry, TKey> keySelector, BusinessObjectFactory<TObject, TEntry, TKey> factory)
         {
             _BusinessContext = BusinessContext;
             _entrySet = entrySet;

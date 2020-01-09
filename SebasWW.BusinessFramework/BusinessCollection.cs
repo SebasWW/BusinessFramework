@@ -11,14 +11,14 @@ namespace SebasWW.BusinessFramework
         where TObject: BusinessObject<TEntry,TKey>
     {
         protected BusinessCollection(
-            BusinessManager businessContext, 
+            BusinessContext businessContext, 
             ICollection<TEntry> entrySet, 
             Func<TEntry, TKey> keySelector, 
             BusinessObjectFactory<TObject, TEntry, TKey> factory
             )
             :base(businessContext, entrySet, keySelector, factory) {}
 
-        public static void Add(BusinessManager businessContext, TObject obj)
+        public static void Add(BusinessContext businessContext, TObject obj)
         {
             businessContext.AddBusinessObject(obj, true);
         }

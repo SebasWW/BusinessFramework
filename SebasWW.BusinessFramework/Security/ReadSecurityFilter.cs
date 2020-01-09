@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 
 namespace SebasWW.BusinessFramework.Security
 {
     public abstract class ReadSecurityFilter<TEntry>
     {
-        protected abstract IQueryable<TEntry> OnReadSecure(BusinessManager context, IQueryable<TEntry> query);
+        protected abstract IQueryable<TEntry> OnReadSecure(BusinessContext context, IQueryable<TEntry> query);
 
-        internal IQueryable<TEntry> ReadSecure(BusinessManager context, IQueryable<TEntry> query)
+        internal IQueryable<TEntry> ReadSecure(BusinessContext context, IQueryable<TEntry> query)
         {
             return OnReadSecure(context, query);
         }

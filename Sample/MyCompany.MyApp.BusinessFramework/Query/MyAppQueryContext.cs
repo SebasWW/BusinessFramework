@@ -16,21 +16,11 @@ namespace MyCompany.MyApp.Query
     {
         public MyAppQueryContext
             (
-                BusinessManager businessContext,
+                BusinessContext businessContext,
                 BusinessObjectFactory<TObject, TEntry, Int32> objectFactory,
                 BusinessCollectionFactory<TCollection, TReadOnlyCollection, TObject, TEntry, Int32> collectionFactory
             )
             : base(businessContext, objectFactory, collectionFactory)
-        { }
-
-        public MyAppQueryContext
-            (
-                BusinessManager businessContext,
-                BusinessObjectFactory<TObject, TEntry, Int32> objectFactory,
-                BusinessCollectionFactory<TCollection, TReadOnlyCollection, TObject, TEntry, Int32> collectionFactory,
-                ReadSecurityFilter<TEntry> objectSecurity
-            )
-            :base( businessContext, objectFactory, collectionFactory, objectSecurity)
         { }
     }
 }

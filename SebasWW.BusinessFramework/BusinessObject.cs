@@ -8,7 +8,7 @@ namespace SebasWW.BusinessFramework
     public abstract class BusinessObject<TEntry, TKey>: BusinessObjectBase
         where TEntry:class 
     {
-        protected Object objLock = new Object();
+        //protected Object objLock = new Object();
 
         #region Changing tracking
 
@@ -38,8 +38,10 @@ namespace SebasWW.BusinessFramework
         public readonly Guid Guid = Guid.NewGuid();
         protected internal TEntry Entry { get; }
 
-        BusinessManager _BusinessManager;
-        protected internal BusinessManager BusinessManager {
+        BusinessContext _BusinessManager;
+
+        [Obsolete]
+        protected internal BusinessContext BusinessManager {
             get => _BusinessManager;
             set
             {
@@ -50,7 +52,7 @@ namespace SebasWW.BusinessFramework
             }
         }
 
-        protected BusinessObject(BusinessManager BusinessManager, TEntry entry)
+        protected BusinessObject(BusinessContext BusinessManager, TEntry entry)
         {
             Entry = entry ?? throw new Exception("Creating business object without entry.");
             _BusinessManager = BusinessManager;
@@ -66,6 +68,6 @@ namespace SebasWW.BusinessFramework
         virtual protected void OnBusinessManagerChange() { }
         
         // secure query
-        protected virtual internal IQueryable<TEntry> PermissionRead(IQueryable<TEntry> query) { return query;}
+        //protected virtual internal IQueryable<TEntry> PermissionRead(IQueryable<TEntry> query) { return query;}
     }
 }
