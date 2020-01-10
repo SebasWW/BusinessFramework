@@ -33,15 +33,15 @@ namespace SebasWW.BusinessFramework.Query
          
         public BusinessQuery<TCollection, TReadOnlyCollection, TObject, TEntry, TKey> ExecCustomFunction(object customFuncKey)
         {
-            if (BusinessQueryContext.CustomFunctions == null) throw new InvalidOperationException("Custom functions is not initialized.");
+            if (BusinessQueryContext.CustomFilters == null) throw new InvalidOperationException("Custom functions is not initialized.");
 
-            Query = BusinessQueryContext.CustomFunctions[customFuncKey].Invoke(Query, BusinessQueryContext);
+            Query = BusinessQueryContext.CustomFilters[customFuncKey].ApplyFilter(Query, BusinessQueryContext);
             return this;
         }
 
         private IQueryable<TEntry> FinalizeQuery()
         {
-            return BusinessQueryContext.FinalizingFunction.Invoke(Query, BusinessQueryContext);
+            return BusinessQueryContext.FinalizingFilter.ApplyFilter(Query, BusinessQueryContext);
         }
 
 		internal override IQueryable<TEntry> GetQuery()

@@ -8,8 +8,6 @@ namespace SebasWW.BusinessFramework
     public abstract class BusinessObject<TEntry, TKey>: BusinessObjectBase
         where TEntry:class 
     {
-        //protected Object objLock = new Object();
-
         #region Changing tracking
 
         //public delegate void OnChangingEventHandler(object sender, OnChangingEventArgs<GenericObject<TEntry, TKey>> e);
@@ -66,8 +64,5 @@ namespace SebasWW.BusinessFramework
         protected internal abstract void OnRemove();
 
         virtual protected void OnBusinessManagerChange() { }
-        
-        // secure query
-        //protected virtual internal IQueryable<TEntry> PermissionRead(IQueryable<TEntry> query) { return query;}
     }
 }

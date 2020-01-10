@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using SebasWW.BusinessFramework.Factory;
-using SebasWW.BusinessFramework.Security;
 
 namespace SebasWW.BusinessFramework.Query
 {
@@ -16,23 +15,23 @@ namespace SebasWW.BusinessFramework.Query
 
         internal readonly BusinessObjectFactory<TObject, TEntry, TKey> ObjectFactory;
         internal readonly BusinessCollectionFactory<TCollection, TReadOnlyCollection, TObject, TEntry, TKey> CollectionFactory;
-        internal readonly IImmutableDictionary<object, Func<IQueryable<TEntry>, BusinessQueryContext<TCollection, TReadOnlyCollection, TObject, TEntry, TKey>, IQueryable<TEntry>>> CustomFunctions;
-        internal readonly Func<IQueryable<TEntry>, BusinessQueryContext<TCollection, TReadOnlyCollection, TObject, TEntry, TKey>, IQueryable<TEntry>> FinalizingFunction;
+        internal readonly IImmutableDictionary<object, IBusinessQueryFilter<TCollection, TReadOnlyCollection, TObject, TEntry, TKey>> CustomFilters;
+        internal readonly IBusinessQueryFilter<TCollection, TReadOnlyCollection, TObject, TEntry, TKey> FinalizingFilter;
 
         public BusinessQueryContext
             (
                 BusinessContext businessContext,
                 BusinessObjectFactory<TObject, TEntry, TKey> objectFactory,
                 BusinessCollectionFactory<TCollection, TReadOnlyCollection, TObject, TEntry, TKey> collectionFactory,
-                IDictionary<object, Func<IQueryable<TEntry>, BusinessQueryContext<TCollection, TReadOnlyCollection, TObject, TEntry, TKey>, IQueryable<TEntry>>> customFunctions = null,
-                Func<IQueryable<TEntry>, BusinessQueryContext<TCollection, TReadOnlyCollection, TObject, TEntry, TKey>, IQueryable<TEntry>> finalizingFunction = null
+                IDictionary<object, IBusinessQueryFilter<TCollection, TReadOnlyCollection, TObject, TEntry, TKey>> customFilters = null,
+                IBusinessQueryFilter<TCollection, TReadOnlyCollection, TObject, TEntry, TKey> finalizingFilter = null
             )
         {
             BusinessContext = businessContext;
             ObjectFactory = objectFactory;
             CollectionFactory = collectionFactory;
-            CustomFunctions = customFunctions.ToImmutableDictionary();
-            FinalizingFunction = finalizingFunction;
+            CustomFilters = customFilters.ToImmutableDictionary();
+            FinalizingFilter = finalizingFilter;
         }
 
         public Dictionary<object, object> Properties { get; } = new Dictionary<object, object>();

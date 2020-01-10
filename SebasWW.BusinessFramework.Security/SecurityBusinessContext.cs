@@ -12,7 +12,7 @@ using SebasWW.BusinessFramework.Tracking;
 
 namespace SebasWW.BusinessFramework
 {
-    public abstract class SecurityBusinessManager : BusinessContext
+    public abstract class SecurityBusinessContext : BusinessContext
     {
         //******************************************************
         // properties
@@ -24,7 +24,7 @@ namespace SebasWW.BusinessFramework
         //******************************************************
         // Constructor
         //******************************************************
-        protected SecurityBusinessManager(IIdentity user, DbContext dbContext, ILogWriter logWriter, IEnumerable<ITracker> trackers) 
+        protected SecurityBusinessContext(IIdentity user, DbContext dbContext, ILogWriter logWriter, IEnumerable<ITracker> trackers) 
             :base(dbContext, logWriter, trackers)
         {
             User = user;
